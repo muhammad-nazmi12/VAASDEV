@@ -1,3 +1,6 @@
 {
-    "python.analysis.typeCheckingMode": "basic"
+    "python.analysis.typeCheckingMode": "basic",
+    "git.path":"/usr/bin/git",
+    "git.config.user.email":"imuhammadnazmi@gmail.com",
+    "git.config.user.name":"muhammad-nazmi12"
 }
