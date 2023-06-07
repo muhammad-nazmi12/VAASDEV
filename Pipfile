@@ -29,6 +29,7 @@ plotly = "*"
 geopy = "*"
 geocoder = "*"
 psycopg2-binary = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
