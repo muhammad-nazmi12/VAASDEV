@@ -1,0 +1,48 @@
+{% extends 'template/base.html' %}
+
+{% block body %}
+
+<div id="myExImBox">
+    <div class="ExImTitle">
+        <h2> Export / Import Case Report </h2>
+    </div>
+
+    <div class="ExportModel">
+        <h2>Export Document</h2>
+        <p>Select which Date want to export report and click Export Button</p>
+        <h3 class="OnDt">Start Date: </h3>
+        <h3 class="OutDt">End Date: </h3>
+        <div class="ExportBox">
+            <input type="date" class="StartExportDt" id="StartDate" name="trip-start" value="02-05-2023"
+            min="01-01-1999" max="31-12-2023">
+            <input type="date" class="EndExportDt" id="EndDate" name="trip-end" value="05-05-2023" 
+            min="01-01-1999" max="31-12-2023">
+        </div>
+        <button class="ExportBtn">Export</button>
+    </div>
+
+    <div class="ImportModel">
+        <h2>Import Document</h2>
+        <p>Browse the report to import and click Import Button</p>
+        {% block content %}
+        <form method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            <input type=file class= "ImportRprt" name="importfile">
+            <button type="submit" class="ImportBtn">Import</button>
+        </form>
+
+        {%if uploaded_file_url%}
+        <p>File uploaded at:<a href="{{uploaded_file_url}}">{{uploaded_file_url}}</a></p>
+        {% endif %}
+        {%endblock%}
+        <!--<div class="ImportBox">
+            <input type="file" class="ImportRprt" id="report" name="report"
+            accept="pdf,docx,pptx">
+        </div>
+        <button class="ImportBtn">Import</button>-->
+    </div>
+</div>
+
+{% load static %}
+<script src="{% static '/js/exportimportjs.js' %}"></script>
+{% endblock %}

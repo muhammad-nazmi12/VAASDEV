@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Popup Window Example</title>
+  <style>
+    .popup {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 300px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .popup-content {
+      padding: 20px;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <button id="createcase-popup">Create Case</button>
+
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h3>Create Case Form</h3>
+      <form action="/create/" method="POST">
+        {% csrf_token %}
+        <label for="case-title">Title:</label>
+        <input type="text" id="case-title" name="case-title"><br><br>
+        
+        <label for="case-description">Description:</label>
+        <textarea id="case-description" name="case-description"></textarea><br><br>
+        
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <button id="popup-close">Close</button>
+  </div>
+  <script>
+    $(document).ready(function() {
+        console.log("reportlib.js loaded");
+      
+        $('#createcase-popup').click(function() {
+          $('#popup').fadeIn();
+        });
+      
+        $('#popup-close').click(function() {
+          $('#popup').fadeOut();
+        });
+      });
+  </script>
+</body>
+</html>

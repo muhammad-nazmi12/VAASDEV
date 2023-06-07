@@ -1,0 +1,121 @@
+{% extends 'template/base.html' %}
+
+{% block body %}
+<div id="myCRDisplay">
+    <div class="CRTitle">
+        <h2>VAAS Case Report Page</h2>
+    </div>
+    <div class="CRDisplay1" id="myCRDisplay1">
+        <div class="CreateCaseSection">
+            <button id="createcase-popup">Create Case</button>
+        </div>
+        <div class="SearchField">
+            <form method="get" action"{% url 'reportlib' %}">
+            {% csrf_token %}
+            <div class = "search-form">
+                <label for='{{ form1.search_query.id_for_label}}'>Search:</label>
+                {{form1.search_query1}}
+            </div>
+            <div class = "sortby-form">
+                <label for='{{ form1.sortbyorder.id_for_label}}'>Sort by:</label>
+                {{form1.sortbyorder1}}
+            </div>
+            <div class = "elementby-form">
+                <label for='{{ form1.categoryorder.id_for_label}}'>Category:</label>
+                {{form1.categoryorder1}}
+            </div>
+            <button type="submit" id="RprtSearchBtn">Search</button>
+        </form>
+        </div>
+        <div class="CRListDisplay" id="myCRListDisplay">
+            <table class="CRTable">
+                <thead>
+                    <tr>
+                        <th style="width:100px;">Case No. :</th>
+                        <th style="width:400px;">Title:</th>
+                        <th style="width:500px;">Description:</th>
+                        <th style="width:200px;">DateTime:</th>
+                        <th style="width:100px;">Action:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ACR in accident_reports %}
+                        <tr>
+                            <td>{{ ACR.CaseID }}</td>
+                            <td>{{ ACR.Title }}</td>
+                            <td>{{ ACR.Description }}</td>
+                            <td>{{ ACR.DateTime }}</td>
+                            <td></td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" style="text-align:center;">No accident reports found.</td>
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="CRDisplay2" id="myCRDisplay2">
+        <div class='SearchField2'>
+            <form method="get" action"{% url 'reportlib' %}">
+                {% csrf_token %}
+                <div class = "search-form2">
+                    <label for='{{ form2.search_query2.id_for_label}}'>Search:</label>
+                    {{form2.search_query2}}
+                </div>
+                <div class = "sortby-form2">
+                    <label for='{{ form2.sortbyorder2.id_for_label}}'>Sort by:</label>
+                    {{form2.sortbyorder2}}
+                </div>
+                <div class = "elementby-form2">
+                    <label for='{{ form2.elementbyorder2.id_for_label}}'>Order by:</label>
+                    {{form2.elementbyorder2}}
+                </div>
+                <button type="submit" id="RprtSearchBtn">Search</button>
+            </form>
+        </div>
+        <div class='RDListDisplay' id="myRDListDisplay">
+            <table id = "RDTable">
+                <thead>
+                    <tr>
+                        <th style="width:100px;">Ref No.: </th>
+                        <th style="width:700px;">File: </th>
+                        <th style="width:300px;">Owned By:</th>
+                        <th style="width:100px;">Case No.:</th>
+                        <th style="width:100px;">Action:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for RD in refer_doc %}
+                        <tr>
+                            <td>{{ RD.RefNo }}</td>
+                            <td>{{ RD.File }}</td>
+                            <td>{{ RD.Owner }}</td>
+                            <td>{{ RD.CaseNo }}</td>
+                            <td></td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" style="text-align:center;">No reference document found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="popup" class="popup">
+    <div class="popup-content" id="popup-content">
+        {% include 'createcase/popup.html' %}
+    </div>
+    <button id="popup-close">Close</button>
+</div>
+
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/libpopup.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="{% static '/js/reportlibjs.js' %}"></script>
+<script src="{% static '/js/popup.js ' %}"></script>
+{% endblock %}

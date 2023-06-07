@@ -1,0 +1,61 @@
+{% extends 'template/base.html' %}
+{% block body %}
+
+<div id="myMap">
+    <div class="MapTitle">
+        <h2>VAAS Map Display</h2>
+    </div>
+    <div class="MapView" id="myMapView">
+        <div class="sidemenubtn">
+            <span style="font-size:30px; cursor:pointer"
+            onclick="OCMapMenu()">&#9776;</span>
+        </div>
+        <div class="MapDisplay" id="myMapDisplay">
+        </div>
+    </div>
+    <div id="myMDMenu" class="MDMenu">
+        <div class="CoorBox1">
+            <h4>Search Coordinate</h4>
+            <form class="CoordForm" method="POST" action="{% url 'mapview' %}">
+                {% csrf_token %}
+                {{ form1.as_p }} 
+                <button type="submit" class="SubmitCoord">Search...</button>
+            </form>
+        </div>
+        <div class="LocateBox">
+            <h4>Search Location</h4>
+            <form class="LocateForm" method="POST" action="{% url 'mapview' %}">
+            {% csrf_token %}
+            {{ form2.as_p }}
+            <button type="submit" class="SubmitLocate">Search...</button>
+            </form>
+        </div>
+        <div class="CLBox">
+            <h4>Center Coordinate</h4>
+            <button 
+            class="CntrBtn"
+            onclick="CntrMarker()">Center Map</button>
+        </div>
+        <div class="CoorBox2">
+            <h4>Coordinate on The Map</h4>
+            <p class="CoorLbl1">Lat :
+                <input id="LatCoorValue" type="text" readonly>    
+            </p>
+            
+            <p class="CoorLbl2">Long : 
+                <input id="LongCoorValue" type="text" readonly>
+            </p>
+            
+        </div>
+    </div>
+</div>
+
+{% load static %}
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="{% static '/js/mappage.js' %}"></script>
+<script src="{% static '/js/mapdisplay.js'  %}"></script>
+
+<script id="center-point" type="application/json">
+    {{centerpoint|json_script}}
+</script>
+{% endblock %}

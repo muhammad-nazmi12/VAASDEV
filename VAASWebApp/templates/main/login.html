@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Just testing. Who knows that this website will be working on one day.</title>
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/loginpage.css' %}">
+</head>
+<body>
+    <div class = "formstructor">
+            <!--Signup Form-->
+        <div class="signupform">
+            <h2 class="signupform-title" id="signup"><span>or</span>Sign up</h2>
+            <div class="signupform-holder">
+                    <input type="text" class='input' placeholder="Username" name="username"/>
+                    <input type="email" class='input' placeholder="Email" name="email"/>
+                    <input type="password" class='input' placeholder="Password" name="password"/>
+                </div>
+                <button type="submit" class="signup-submit-btn">Sign up</button>
+            </div>
+            <!--SignIn Form-->
+            <form method="POST" action="{% url 'signin' %}">
+                {% csrf_token %}
+                <div class="login slide-up">
+                    <div class="center">
+                        <h2 class="loginform-title" id="login"><span>or</span>Log in</h2>
+                        <div class="loginform-holder">
+                            <input type="text" class='input' placeholder="Username" name="username"/>
+                            <input type="password" class='input' placeholder = "Password" name="password"/>
+                        </div>
+                        <button type="submit" class="login-submit-btn">Log in</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="{% static '/js/loginjs.js' %}"></script>
+</body>
+</html>
+
+
+<!--<div class="Login-Content">
+        <h2>Login</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+    </div>-->
+

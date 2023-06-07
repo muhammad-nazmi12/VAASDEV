@@ -1,0 +1,23 @@
+<button id="my_button">Click me</button>
+
+<div id="my_popup" style="display: none;">
+    <p> This is the popup!</p>
+    <button id="close_popup">Close</button>
+</div>
+
+<script>
+    //Get the button and popup elements
+    const button=document.getElementById('my_button');
+    const popup =document.getElementById('my_popup');
+    const close =document.getElementById('close_popup');
+
+    //Show the popup when the button is clicked
+    button.addEventListener('click',()=>{
+        popup.style.display='block';
+    });
+
+    //Close the popup when the close button is clicked
+    close.addEventListener('click',()=>{
+        popup.style.display='none';
+    });
+</script>

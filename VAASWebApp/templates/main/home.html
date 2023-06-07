@@ -1,0 +1,45 @@
+{% extends 'template/base.html' %}
+
+
+{% block body %}
+
+<div id="myHome"> 
+    <div class="HomeTitle">
+        <h2>{{name}}</h2>
+    </div>
+    <div class="HomeContent" id="myHomeContent">
+        <div class="DCDisplay" id="myDCDisplay">
+                {% block daily_count %}
+                <h4>Daily Count for Today include pie chart</h4> 
+                {% endblock %}
+        </div>
+        <div class="DTDisplay" id="myDTDisplay">
+                <div id='clockdate'>
+                        <div class='clockdate-wrapper'>
+                                <div id='clock'></div>
+                                <div id='date'></div>
+                        </div>
+                </div>
+        </div>
+        <div class="OMDisplay" id="myOMDisplay">
+                <p>{{username}}</p>
+                <a href="">Profile</a>
+                <a href="">Settings</a>
+                <div>
+                        <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">Logout</button>
+                        </form>
+                </div>
+        </div>
+        <div class="DUDisplay" id="myDUDisplay">
+                <h5>Daily Update News</h5>
+                
+        </div>
+    </div>
+</div>
+
+{% load static %}
+<script src="{% static '/js/homejs.js' %}"></script>
+<script src="{% static '/js/clock.js'%}"></script>
+{% endblock %}

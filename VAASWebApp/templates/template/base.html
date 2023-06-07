@@ -1,0 +1,42 @@
+<!--This is html template-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Just testing. Who knows that this website will be working on one day.</title>
+</head>
+<!--Need to put load static for load stylesheet and also images but make sure that static folder has been created on app-->
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/styles.css' %}">
+<link rel="stylesheet" href="{% static '/css/mapmenu.css' %}">
+<link rel="stylesheet" href="{% static '/css/libdisplay.css' %}">
+<link rel="stylesheet" href="{% static '/css/clock.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />       
+<!--<body style="background-image:url('{% static 'images/backgroundroad.jpg' %}'); background-repeat:no-repeat;background-size: 100% 730%;">-->
+<body>
+
+<div id="mySidenav" class="sidenav">
+    <a href-"javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <p>Vehicle Accident Analytical System</p>
+    <a href="{%url 'home' %}">Home</a>
+    <a href="{%url 'mapview'%}">Map</a>
+    <a href="{%url 'reportlib'%}">Search</a>
+    <a href="{%url 'analytical'%}">Analytic</a>
+    <a href="{%url 'exportimport'%}">Export/Import</a>
+</div>
+
+<div class="sidebarbtn">
+    <span style="font-size:30px; cursor:pointer"
+    onclick="openNav()">&#9776;</span>
+</div>
+
+
+<main>
+{% block body %}{% endblock %}
+</main>
+
+<!--{% block footer %}
+    <footer>@2023 Just Testing</footer>
+{% endblock %}-->
+</body>
+</html>

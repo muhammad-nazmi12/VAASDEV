@@ -1,0 +1,8 @@
+{% block coord_form %}
+<h4>Search Coordinate</h4>
+<form method="POST" class="CoordForm" action="{% url 'searchcoord' %}">
+    {% csrf_token %}
+
+    {{form.as_p}}
+</form>
+{% endblock %}

@@ -1,0 +1,572 @@
+/*Start Body & Sidebar Component*/
+body{
+    background-repeat:no-repeat;
+    background-size:100%;  
+    height:100%;
+    background-color: aliceblue;
+}
+
+.sidenav{
+    height: 100%;
+    width:0;
+    position:fixed;
+    z-index: 1;
+    top:0;
+    left:0;
+    background-color: powderblue;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition:0.5s;
+}
+
+.sidenav p{
+    padding: 6px 8px 6px 16px;
+}
+
+.sidenav a{
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color:whitesmoke;
+    display: block;
+    transition:0.3s;
+}
+
+.sidenav a:hover{
+    color:lightblue;
+}
+
+.sidenav .closebtn{
+    position:absolute;
+    top:0;
+    right:25px;
+    font-size: 36px;
+    margin-left:50px;
+}
+
+.sidebarbtn{
+    width:200px;
+    height:100px;
+}
+
+@media screen and (max-height:450px){
+    .sidenav{padding-top:15px;}
+    .sidenav a{font-size:18px;}
+}
+
+footer {
+    position:absolute;
+    right:0;
+    bottom:0;
+}
+
+/*End Body & Sidebar Component*/
+
+/*Start Home Page*/
+
+#myHome{
+    transition: margin-left .5s;
+    padding:16px;
+}
+
+.HomeTitle{
+    position: absolute;
+    left:38%;
+    top:20px;
+}
+
+.HomeTitle h2{
+    text-align: center;
+}
+
+.HomeContent{
+    width:1300px;
+    height:500px;
+    position:relative;
+    margin:auto;
+    border:2px solid gray;
+    border-radius:5px;
+    background-color: white;
+}
+
+#myHomeContent{
+    transition: width .5s;
+}
+.DCDisplay{
+    width:500px;
+    height:195px;
+    position:absolute;
+    left:10px;
+    top:10px;
+    border:2px solid gray;
+    border-radius:5px;
+}
+
+.DTDisplay{
+    width:300px;
+    height:195px;
+    position:absolute;
+    left:520px;
+    top:10px;
+    border:2px solid gray;
+    border-radius:5px;
+}
+
+.DTDisplay p{
+    position:absolute;
+    text-align: center;
+}
+
+.OMDisplay{
+    width:455px;
+    height:195px;
+    position:absolute;
+    left:830px;
+    top:10px;
+    border:2px solid gray;
+    border-radius:5px;
+}
+
+#myOMDisplay{
+    transition: width .5s;
+}
+
+.OMDisplay p{
+    padding:8px 8px 8px 8px;
+    font-size: 16px;
+}
+
+.OMDisplay a{
+    padding:8px 8px 8px 8px;
+    text-decoration: none;
+    font-size: 16px;
+    color:black;
+    display: block;
+    transition:0.3s;
+}
+
+.OMDisplay a:hover{
+    color:lightblue;
+}
+
+.DUDisplay{
+    width:1275px;
+    height:265px;
+    position:absolute;
+    top:220px;
+    left:10px;
+    border:2px solid gray;
+    border-radius:5px;
+}
+
+#myDUDisplay{
+    transition: width .5s;
+}
+
+
+
+/*End Home Page*/
+
+/*Start Map Display Page*/
+
+#myMap{
+    transition: margin-left .5s;
+    padding:16px;
+}
+
+#myMapView{
+    transition: width .5s;
+}
+
+.MapTitle{
+    position: absolute;
+    left:43%;
+    top:20px;
+}
+
+.MapTitle h2{
+    text-align: center;
+}
+
+.MapView{
+    height:590px;
+    width:1105px;
+    top:-40px;
+    left:50px;
+    position:relative;
+    border:2px solid gray;
+    border-radius:5px;
+    background-color: white;
+}
+
+#myMapDisplay{
+    transition: width .5s;
+    height:555px;
+    position:absolute;
+}
+
+#myMapDisplay > .leaflet-container{
+    position:absolute;
+    top:0;
+    bottom: 0;
+    left:0;
+    right:0;
+}
+
+.MapDisplay{
+    height:555px;
+    width:1015px;
+    left:15px;
+    top:15px;
+    position:absolute;
+    border:2px solid gray;
+    border-radius: 5px;
+    
+}
+
+.MDMenu{
+    height:585px;
+    width:0;
+    position:absolute;
+    top:85px;
+    left:1183px;
+    background-color:powderblue;
+    overflow-x: hidden;
+    padding-top:10px;
+    transition:0.5s;
+    border-radius: 5px;
+}
+
+.CoorMenu{
+    width:0;
+    height:0;
+    position:absolute;
+    top:30px;
+    left:10px;
+}
+
+#myCoorMenu{
+    transition:width 2s;
+}
+
+
+.sidemenubtn{
+    width:200px;
+    height:100px;
+    position:absolute;
+    right: -150px;
+    top:10px;
+    z-index: 9999;
+}
+
+/*End Map Display Page*/
+
+/*Start Search Document Page*/
+
+#myCRDisplay{
+    transition: margin-left .5s;
+    padding:16px;
+}
+
+.CRTitle{
+    position:absolute;
+    top:20px;
+    left:43%;
+}
+
+.CRTitle h2{
+    text-align: center;
+}
+
+.CRDisplay1{
+    height:300px;
+    width:1300px;
+    left:90px;
+    position:relative;
+    border:2px solid gray;
+    border-radius: 5px;
+    background-color: white;
+}
+
+#myCRDisplay1{
+    transition: width .12s;
+}
+
+#myCRDList{
+    transition: width .12s;
+}
+
+.SearchField{
+    width:300px;
+    height:100px;
+    right:-55px;
+    top:30px;
+    position: absolute;
+}
+
+.CRTable{
+    overflow:auto;
+}
+
+.CRTable,th,td{
+    border:2px solid black;
+    border-collapse: collapse;
+}
+
+.CRDisplay2{
+    height:200px;
+    width:1300px;
+    left:90px;
+    top: 50px;
+    position:relative;
+    border:2px solid gray;
+    border-radius:5px;
+    background-color: white;
+}
+
+#myCRDisplay2{
+    transition: width .12s;
+}
+
+.RDTable{
+    overflow:auto;
+}
+
+.RDTable,th,td{
+    border:2px solid black;
+    border-collapse: collapse;
+}
+
+/*End Search Document Page*/
+
+/*Start Analytical Page*/
+
+#myAnalytical{
+    transition: margin-left .5s;
+    padding:16px;
+}
+
+.AnalyticalTitle{
+    position: absolute;
+    left:43%;
+    top:20px;
+}
+
+.AnalyticalTitle h2{
+    text-align: center;
+}
+
+#myAnalyticalTable{
+    transition: width .12s;
+    padding:16px;
+}
+
+.AnalyticalTable{
+   height:500px;
+   width:1350px;
+   margin:auto;
+   position:relative;
+   border:2px solid gray; 
+   border-radius: 5px;
+   background-color: white;
+}
+
+.Table1{
+    position:absolute;
+    width:400px;
+    height:180px;
+    border:2px solid gray;
+    border-radius: 5px;
+}
+
+.Table1 h4{
+    position:absolute;
+    top:-5px;
+    left:20px;
+}
+
+.Table2{
+    position:absolute;
+    width:926px;
+    height:180px;
+    left:436px;
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
+.Table2 h4{
+    position:absolute;
+    top:-5px;
+    left:20px;
+}
+
+#myTable2{
+    transition: width .12s;
+}
+
+.Table3{
+    position:absolute;
+    width:1314px;
+    height:250px;
+    border:2px solid gray;
+    bottom:5%;
+    border-radius: 5px;
+}
+
+#myTable3{
+    transition: width .12s;
+    padding:16px;
+}
+
+.Table3 h4{
+    position:absolute;
+    top:-5px;
+    left:20px;
+}
+
+/*End Analytical Page*/
+
+/*Start Export / Import Page*/
+
+#myExImBox{
+    transition: margin-left .5s;
+    padding:16px;
+}
+
+.ExImTitle{
+    position: absolute;
+    left:40%;
+    top:20px;
+}
+
+.ExImTitle h2{
+    text-align: center;
+}
+
+.ExportModel{
+    height:170px;
+    width:400px;
+    left:50px;
+    position:relative;
+    border:2px solid gray;
+    border-radius:5px;
+    background-color: white;
+}
+
+.ExportModel h2{
+    position:absolute;
+    top:0%;
+    left:10px;
+    font-size:18px;
+}
+
+.OnDt{
+    position:absolute;
+    top:80px;
+    left:10px;
+    font-size:14px;
+}
+
+.OutDt{
+    position:absolute;
+    top:120px;
+    left:10px;
+    font-size: 14px;
+}
+
+.ExportModel p {
+    position:absolute;
+    top:40px;
+    left:10px;
+    font-size:14px;
+}
+
+.ExportBtn{
+    position:absolute;
+    top:131px;
+    right:7%;
+    border-radius:6px;
+    background-color: white;
+    color:black;
+    transition-duration:0.4s;
+    cursor:pointer;
+
+}
+
+.ExportBtn:hover{
+    background-color:#555555;
+    color:white;
+}
+
+.StartExportDt{
+    position:absolute;
+    top:90px;
+    left:90px;
+    height:20px;
+    border-radius:5px;
+}
+
+.EndExportDt{
+    position:absolute;
+    top:130px;
+    left:90px;
+    height:20px;
+    border-radius: 5px;
+}
+
+
+.ImportModel{
+    height:120px;
+    width:400px;
+    top:50px;
+    left:50px;
+    position:relative;
+    border:2px solid gray;
+    border-radius:5px;
+    background-color: white;
+}
+
+.ImportModel h2{
+    position:absolute;
+    top:0%;
+    left:10px;
+    font-size:18px;
+}
+
+.ImportModel h3 {
+    position:absolute;
+    top:60%;
+    left:10px;
+    font-size:14px;
+}
+
+.ImportModel p {
+    position:absolute;
+    top:30%;
+    left:10px;
+    font-size:14px;
+}
+
+.ImportBtn{
+    position:absolute;
+    top:70%;
+    right:7%;
+    border-radius:6px;
+    background-color: white;
+    color:black;
+    transition-duration:0.4s;
+    cursor:pointer;
+}
+
+.ImportBtn:hover{
+    background-color:#555555;
+    color:white;
+}
+
+.ImportRprt{
+    position:absolute;
+    top:70%;
+    left:2%;
+}
+
+/*End Export / Import Page*/
