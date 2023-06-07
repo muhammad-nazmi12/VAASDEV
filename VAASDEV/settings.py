@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-import dotenv
+from dotenv import find_dotenv, load_dotenv
 import sys
 sys.path.append('/path/to/forms')
 
@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'VAASDEV.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-dotenv.load_dotenv()
+load_dotenv(find_dotenv())
 DATABASES = {
     'default':{
         'ENGINE':'django.db.backends.postgresql',
@@ -135,6 +135,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT=os.path.join(BASE_DIR,'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
