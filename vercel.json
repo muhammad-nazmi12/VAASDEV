@@ -1,17 +1,8 @@
 {
     "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "VAASDEV/wsgi.py"
-        }
-    ],
+        { "src": "/(.*)", "dest": "VAASDEV.wsgi.application" }
+      ],
     "env":{
         "DJANGO_SETTINGS_MODULE":"VAASDEV.settings"
-    },
-    "functions":{
-        "api":{
-            "maxDuration":5,
-            "memory":1024
-        }
     }
 }
