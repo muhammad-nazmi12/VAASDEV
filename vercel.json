@@ -1,8 +1,27 @@
 {
+    "builds":[
+        {
+            "src":"VAASDEV/wsgi.py",
+            "use":"@vercel/python",
+            "config":{
+                "runtime":"python3.10",
+                "maxLambdaSize":"15mb"
+            }
+        }
+    ],
     "routes": [
         {
             "src": "/(.*)",
             "dest": "VAASDEV/wsgi.py"
         }
-    ]
+    ],
+    "env":{
+        "DJANGO_SETTINGS_MODULE":"VAASDEV.settings"
+    },
+    "functions":{
+        "api":{
+            "maxDuration":30,
+            "memory":1024
+        }
+    }
 }
