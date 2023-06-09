@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-9bc)8ehoz=e1h^n0i@g!xz%h%me*5c4-wtgxp7!^@zh!8v0hqj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app','127.0.0.1']
+ALLOWED_HOSTS = ['.vercel.app','vaasdev.vercel.app','127.0.0.1']
 
 
 # Application definition
@@ -61,7 +61,6 @@ MIDDLEWARE = [
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
-    "https://vaasdev.vercel.app/"
     # ...
 ]
 
@@ -149,6 +148,6 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 
 #Login page
-LOGIN_URL = '/login/'
+LOGIN_URL = 'https://vaasdev.vercel.app/login/'
 #Login Redirect URL (After Login it, need to go home page)
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = 'https://vaasdev.vercel.app/home/'
