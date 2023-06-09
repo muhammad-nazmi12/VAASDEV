@@ -10,7 +10,7 @@
     },
     "functions":{
         "api":{
-            "maxDuration":30,
+            "maxDuration":5,
             "memory":1024
         }
     }
