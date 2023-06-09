@@ -321,6 +321,8 @@ def createcase_view(request):
         vehicle_damage = request.POST.get('vehicle_damage')
         location_name = request.POST.get('location_name')
         location_address = request.POST.get('location_address')
+        location_longcoord = request.POST.get('location_longcoord')
+        location_latcoord = request.POST.get('location_latcoord')
         ref_item = request.POST.get('ref_item')
         owned_by = request.POST.get('owned_by')
         ref_type = request.POST.get('ref_type')
@@ -365,6 +367,8 @@ def createcase_view(request):
         location = Location.objects.create(
             LocationName = location_name,
             LocationAddress = location_address,
+            CoordLong = location_longcoord,
+            CoordLat = location_latcoord,
             CaseID = accident_report
         )
         

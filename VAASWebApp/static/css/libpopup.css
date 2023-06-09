@@ -138,6 +138,18 @@
   left:47px;
 }
 
+#location_longcoord{
+  width:300px;
+  position:relative;
+  left:29px;
+}
+
+#location_latcoord{
+  width:300px;
+  position:relative;
+  left:47px;
+}
+
 #reference_fields{
   border: 3px solid blue; 
   width:800px;

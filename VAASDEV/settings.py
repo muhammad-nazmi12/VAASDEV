@@ -148,6 +148,6 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 
 #Login page
-LOGIN_URL = '/VAASDEV/login/'
+LOGIN_URL = '/login/'
 #Login Redirect URL (After Login it, need to go home page)
-LOGIN_REDIRECT_URL = '/VAASDEV/home/'
+LOGIN_REDIRECT_URL = '/home/'

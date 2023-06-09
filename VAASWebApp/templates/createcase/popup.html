@@ -70,24 +70,29 @@
             </div>
         </div>
         <button type="button" onclick="addVehicleField()">Add</button>
-        <button type='button'>Back</button>
+        <button type='button' onclick="previousForm(1)">Back</button>
         <button type="button" onclick="nextForm(3)">Next</button>
     </div>
 
     <!--Form Fields - Location Details-->
     <div id="form3" style="display:none;">
         <h4>Location Detail</h4>
-        <div style="border: 3px solid blue; width:800px;">
+        <div style="border: 3px solid blue; width:450px;">
             <label for="location_name">Location Name: </label>
             <input type="text" id="location_name" name="location_name">
             <br>
             <label for="location_address">Address: </label>
             <textarea id="location_address" name="location_address"></textarea>
             <br>
+            <label for="location_longcoord">Longtitude: </label>
+            <input type="text" id="location_longcoord" name="location_longcoord">
+            <br>
+            <label for="location_latcoord">Latitude: </label>
+            <input type="text" id="location_latcoord" name="location_latcoord">
         </div>
         <div id="map2">
         </div>
-        <button type='button'>Back</button>
+        <button type='button' onclick="previousForm(2)">Back</button>
         <button type="button" onclick="nextForm(4)">Next</button>
     </div>
 
@@ -113,12 +118,14 @@
             </div>
         </div>
         <button type="button" onclick="addReferenceField()">Add</button>
-        <button type='button'>Back</button>
+        <button type='button' onclick="previousForm(3)">Back</button>
         <button type="button" onclick="nextForm(5)">Next</button>
     </div>
 
 
     <div id="form5" style="display:none;">
+        <div id="previewForm"></div>
+        <button type='button' onclick="previousForm(4)">Back</button>
         <button type="submit">Submit</button>
     </div>
 </form>

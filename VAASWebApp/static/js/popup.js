@@ -8,6 +8,16 @@ function nextForm(formNumber){
     nextForm.style.display = "block";
 }
 
+function previousForm(formNumber){
+    //Hide the current form
+    var currentForm = document.getElementById("form" + (formNumber+1));
+    currentForm.style.display = "None";
+
+    //SHow the previous form
+    var previousForm = document.getElementById("form" + formNumber);
+    previousForm.style.display = "block";
+}
+
 function addPersonField(){
     var entry = document.createElement("div");
     entry.setAttribute("id","person_entry");
