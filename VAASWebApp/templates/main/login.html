@@ -11,12 +11,15 @@
             <!--Signup Form-->
         <div class="signupform">
             <h2 class="signupform-title" id="signup"><span>or</span>Sign up</h2>
-            <div class="signupform-holder">
-                    <input type="text" class='input' placeholder="Username" name="username"/>
-                    <input type="email" class='input' placeholder="Email" name="email"/>
-                    <input type="password" class='input' placeholder="Password" name="password"/>
-                </div>
-                <button type="submit" class="signup-submit-btn">Sign up</button>
+                <form method="POST" action="{% url 'register' %}">  
+                    {% csrf_token %}
+                    <div class="signupform-holder">
+                        <input type="text" class='input' placeholder="Username" name="username" required>
+                        <input type="email" class='input' placeholder="Email" name="email" required>
+                        <input type="password" class='input' placeholder="Password" name="password" required>
+                    </div>
+                    <button type="submit" class="signup-submit-btn">Sign up</button>
+                </form>
             </div>
             <!--SignIn Form-->
             <form method="POST" action="{% url 'signin' %}">
@@ -25,8 +28,8 @@
                     <div class="center">
                         <h2 class="loginform-title" id="login"><span>or</span>Log in</h2>
                         <div class="loginform-holder">
-                            <input type="text" class='input' placeholder="Username" name="username"/>
-                            <input type="password" class='input' placeholder = "Password" name="password"/>
+                            <input type="text" class='input' placeholder="Username" name="username" required>
+                            <input type="password" class='input' placeholder = "Password" name="password" required>
                         </div>
                         <button type="submit" class="login-submit-btn">Log in</button>
                     </div>
@@ -36,14 +39,4 @@
         <script src="{% static '/js/loginjs.js' %}"></script>
 </body>
 </html>
-
-
-<!--<div class="Login-Content">
-        <h2>Login</h2>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Login</button>
-        </form>
-    </div>-->
 

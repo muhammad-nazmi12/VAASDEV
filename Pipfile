@@ -30,6 +30,7 @@ geopy = "*"
 geocoder = "*"
 psycopg2-binary = "*"
 python-dotenv = "*"
+firebase-admin = "*"
 
 [dev-packages]
 

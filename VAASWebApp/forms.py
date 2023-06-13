@@ -1,10 +1,12 @@
 from django import forms
 from VAASWebApp.models import Document,AccidentReport,Person,Location,Vehicle,ReferenceDoc
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 class DocumentForm(forms.ModelForm):
     class Meta:
         model=Document
         fields=('filename','document')
+
 
 class CoordinateForm(forms.Form):
     longtitude = forms.FloatField(label='Longtitude:')

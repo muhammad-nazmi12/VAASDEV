@@ -12,6 +12,7 @@ class User(AbstractUser):
     age = models.PositiveIntegerField(null=True, blank=True)
     gender = models.CharField(max_length=10, null=True, blank=True)
     address = models.CharField(max_length=255, null=True, blank=True)
+    email=models.EmailField()
     
      # Add any other fields you need
     

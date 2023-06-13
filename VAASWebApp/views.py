@@ -2,16 +2,86 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
 from django.core import serializers
 from .forms import DocumentForm,AccidentReportSearchForm,ReferDocSearchForm,CoordinateForm,LPForm,DailyPieChartForm,WeeklyBarChartForm,MonthlyGraphBarForm,ACForm,PForm
-from django.contrib.auth import logout,authenticate,login
+from django.contrib.auth import logout,authenticate,login,get_user_model
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from .models import User
+from django.core.mail import send_mail
 from .models import Document,AccidentReport,ReferenceDoc,Person,Vehicle,Location
 from django.contrib import messages
 from django.db.models import Count
 import matplotlib.pyplot as plt
 import geocoder
+import firebase_admin
+from firebase_admin import credentials
+
+#specify the path to the service account key JSON file
+service_account_path = 'D:/Project/Python/secretkey/vaasdev-service-account-key.json'
+
+#Initialize Firebase with the service account key
+cred = credentials.Certificate(service_account_path)
+firebase_admin.initialize_app(cred)
 
 # Create your views here.
+#def signup(request):
+#    if request.method == 'POST':
+#        form = DjangoUserCreationForm(request.POST)
+#        if form.is_valid():
+#            user = form.save()
+#            username = form.cleaned_data.get('username')
+#            password = form.cleaned_data.get('password')
+#            email = form.cleaned_data.get('email')
+            
+            #Check if the username is already taken
+#            if User.objects.filter(username=username).exists():
+#                error_message = 'Username is already taken'
+#                return render(request,'main/login.html',{'error_message':error_message})
+            
+            #Log in the user after registration
+#            login(request,user)
+            
+            #Send a notification email to the registered user
+#            send_mail(
+#                'Registration completed',
+#                'Thank you for registering. Your account has been created successfully',
+#                'noreply@vaasdev.com',
+#                [email],
+#                fail_silently=False,
+#            )
+            
+#            return redirect('login')
+#        else:
+#            form = UserCreationForm()
+        
+#    return render(request,'main/login.html',{'form': form})
 
+def signup(request):
+    if request.method == 'POST':
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+        email=request.POST.get('email')
+        
+        #Check if the username is already taken
+        if User.objects.filter(username=username).exists():
+                error_message = 'Username is already taken'
+                return render(request,'main/login.html',{'error_message':error_message})
+            
+        
+        #Create a new user and save to the database
+        user=User(username=username,password=password,email=email)
+        user.save()
+        
+        #Send a notification email to the registered user
+        send_mail(
+                'Registration completed',
+                'Thank you for registering. Your account has been created successfully',
+                'noreply@vaasdev.com',
+                [email],
+                fail_silently=False,
+            )
+        
+    return render(request,'main/login.html')
+            
 def signin(request):
     if request.method=='POST':
         username=request.POST.get('username')

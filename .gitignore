@@ -3,3 +3,17 @@
 /.python-version
 db.sqlite3
 .vercel
+
+
+#Firebase
+.firebase/
+.firebase-debug.log
+.firebase/hosting.*
+firebase.json
+firebase.json
+
+#Firebase Service Account Key
+D:/Project/Python/secretkey/vaasdev-service-account-key.json
+
+#Node.js
+node_modules/

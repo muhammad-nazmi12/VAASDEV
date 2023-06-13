@@ -146,8 +146,16 @@ MEDIA_URL='/media/'
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
+FIREBASE_CONFIG ={
+    'apikey':os.environ.get('AIzaSyAhcwntbsPbUF0qhryAFmWzFTAcT_OkCfA'),
+    'authDomain':os.environ.get('vaasdev-3b70d.firebaseapp.com'),
+    'projectId':os.environ.get('vaasdev-3b70d'),
+    'storageBucket':os.environ.get('vaasdev-3b70d.appspot.com'),
+    'messagingSenderId':os.environ.get('17847074099'),
+    'appId':os.environ.get('1:17847074099:web:8f9be7a62bb610c8a39246'),
+}
 
 #Login page
-LOGIN_URL = 'https://vaasdev.vercel.app/login/'
+LOGIN_URL = 'https://vaasdev-3b70d.web.app//login/'
 #Login Redirect URL (After Login it, need to go home page)
-LOGIN_REDIRECT_URL = 'https://vaasdev.vercel.app/home/'
+LOGIN_REDIRECT_URL = 'https://vaasdev-3b70d.web.app/home/'

@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "vaasdev-3b70d",
+    "staging": "vaasdev-3b70d"
+  },
+  "targets": {},
+  "etags": {}
+}
