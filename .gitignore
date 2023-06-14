@@ -11,9 +11,15 @@ db.sqlite3
 .firebase/hosting.*
 firebase.json
 firebase.json
+.firebasearc
 
 #Firebase Service Account Key
 D:/Project/Python/secretkey/vaasdev-service-account-key.json
 
 #Node.js
 node_modules/
+
+
+#github-firebase
+.github/workflows
+

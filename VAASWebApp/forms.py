@@ -19,6 +19,12 @@ class UserLoginFrm(forms.Form):
     username = forms.CharField(label="Username: ")
     password = forms.CharField(label="Password: ")
 
+class UserSignUpForm(forms.Form):
+    username=forms.CharField(label="Username: ")
+    email = forms.CharField(label="Email Address: ")
+    password = forms.CharField(widget=forms.PasswordInput)
+    conpassword = forms.CharField(widget=forms.PasswordInput)
+
 class AccidentReportSearchForm(forms.Form):
     search_query1 = forms.CharField(required=False,max_length=100,
                                    widget=forms.TextInput(attrs={'placeholder':'Search...'}))

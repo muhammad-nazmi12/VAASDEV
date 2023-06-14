@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Just testing. Who knows that this website will be working on one day.</title>
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/signup.css'%}">
+</head>
+<body>
+    <div class="signup-container">
+        <div class="project-title">
+            <h3>Vehicle Accident Analysis System (VAAS)</h3>
+            <h4>User Signup Form</h4>
+            <h4>Please fill your information on the form</h4>
+        </div>
+        <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            {% if error_message %}
+                <p style="text-align:center;">{{error_message}}</p>
+            {% endif %}
+            <input type="text" class="input" placeholder="Username" name="username" required>
+            <input type="email" class="input" placeholder="Email Address" name="email" required>
+            <input type="password" class="input" placeholder="Password" name="password" required>
+            <input type="password" class="input" placeholder="Retype Password" name="conpassword" required>
+            <button type="submit">Sign Up</button>
+            <div class="login-page">
+                <a href="{% url 'signin' %}">Already have an account?</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

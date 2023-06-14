@@ -1,12 +1,12 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
 from django.core import serializers
-from .forms import DocumentForm,AccidentReportSearchForm,ReferDocSearchForm,CoordinateForm,LPForm,DailyPieChartForm,WeeklyBarChartForm,MonthlyGraphBarForm,ACForm,PForm
+from .forms import DocumentForm,AccidentReportSearchForm,ReferDocSearchForm,CoordinateForm,LPForm,DailyPieChartForm,WeeklyBarChartForm,MonthlyGraphBarForm,UserSignUpForm
 from django.contrib.auth import logout,authenticate,login,get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from .models import User
 from django.core.mail import send_mail
+from django.contrib.auth.models import User
 from .models import Document,AccidentReport,ReferenceDoc,Person,Vehicle,Location
 from django.contrib import messages
 from django.db.models import Count
@@ -14,6 +14,8 @@ import matplotlib.pyplot as plt
 import geocoder
 import firebase_admin
 from firebase_admin import credentials
+
+#User =  get_user_model
 
 #specify the path to the service account key JSON file
 service_account_path = 'D:/Project/Python/secretkey/vaasdev-service-account-key.json'
@@ -23,6 +25,51 @@ cred = credentials.Certificate(service_account_path)
 firebase_admin.initialize_app(cred)
 
 # Create your views here.
+def signup(request):
+    if request.method=='POST':
+        signupform = UserSignUpForm(request.POST)
+        if signupform.is_valid():
+            username=signupform.cleaned_data.get('username')
+            email = signupform.cleaned_data.get('email')
+            password=signupform.cleaned_data.get('password')
+            conpassword = signupform.cleaned_data.get('conpassword')
+            
+            #Check if the username is already taken
+            if User.objects.filter(username=username).exists():
+               error_message = 'Username is already taken'
+               return render(request,'userform/signup.html',{'error_message':error_message})
+            
+            
+            if conpassword==password:
+                user = User.objects.create_user(username=username,email=email,password=password)
+                login(request,user)
+                return redirect('home')
+            else:
+                error_message = 'The password not same'
+                return render(request, 'userform/signup.html',{'error_message':error_message}) 
+        else:
+            signupform=UserSignUpForm()
+    
+    return render(request,'userform/signup.html')
+
+def signin(request):
+    if request.method=='POST':
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+        
+        #Authenticate the user
+        user = authenticate(request,username=username,password=password)
+        
+        if user is not None:
+            #User crdentials are valid, log in the user
+            login(request,user)
+            return redirect('home')
+        else:
+            #User crededtials are not valid
+            error_message="Invalid username or password"
+            return render(request,'userform/signin.html',{'error_message':error_message})
+    return render(request,'userform/signin.html')
+
 #def signup(request):
 #    if request.method == 'POST':
 #        form = DjangoUserCreationForm(request.POST)
@@ -55,24 +102,75 @@ firebase_admin.initialize_app(cred)
         
 #    return render(request,'main/login.html',{'form': form})
 
-def signup(request):
-    if request.method == 'POST':
-        username=request.POST.get('username')
-        password=request.POST.get('password')
-        email=request.POST.get('email')
+#def signup(request):
+#    if request.method == 'POST':
+#        username=request.POST.get('username')
+#        password=request.POST.get('password')
+#        email=request.POST.get('email')
+#        
+#        #Check if the username is already taken
+#        if User.objects.filter(username=username).exists():
+#                error_message = 'Username is already taken'
+#                return render(request,'main/login.html',{'error_message':error_message})
+            
         
-        #Check if the username is already taken
-        if User.objects.filter(username=username).exists():
+#        #Create a new user and save to the database
+#        user=User(username=username,password=password,email=email)
+#        user.save()
+        
+#        #Send a notification email to the registered user
+#        send_mail(
+#                'Registration completed',
+#                'Thank you for registering. Your account has been created successfully',
+#                'noreply@vaasdev.com',
+#                [email],
+#               fail_silently=False,
+#            )
+        
+#        #Log in the user
+#        login(request,user)
+        
+#        #Redirect to the desired page
+#        return redirect('home')
+#    else:     
+#        return render(request,'main/login.html')
+            
+#def signin(request):
+#    if request.method=='POST':
+#        username=request.POST.get('username')
+#        password=request.POST.get('password')
+        
+#        # Authenticate the user
+#        user = authenticate(request,username=username, password=password)
+        
+#        if user is not None:
+            #User credentials are valid, log in the user
+#            login(request,user)
+#            return redirect('home')
+#        else:
+#            #User credentials are not valid
+#            error_message='Invalid username or password'
+#            return render(request,'main/login.html',{error_message:error_message})
+#    else:
+#        return render(request,'main/login.html')
+
+def main(request):
+    if request.method == 'POST':
+        if 'signupbtn' in request.POST:
+            username=request.POST.get('username1')
+            password=request.POST.get('password1')
+            email=request.POST.get('email1')
+            
+            #Check if the username is already taken
+            if User.objects.filter(username=username).exists():
                 error_message = 'Username is already taken'
                 return render(request,'main/login.html',{'error_message':error_message})
             
-        
-        #Create a new user and save to the database
-        user=User(username=username,password=password,email=email)
-        user.save()
-        
-        #Send a notification email to the registered user
-        send_mail(
+            #Create a new user and save to the database
+            user=User.objects.create_user(username=username,password=password,email=email)
+            
+            #Send a notification email to the registered user
+            send_mail(
                 'Registration completed',
                 'Thank you for registering. Your account has been created successfully',
                 'noreply@vaasdev.com',
@@ -80,27 +178,29 @@ def signup(request):
                 fail_silently=False,
             )
         
-    return render(request,'main/login.html')
-            
-def signin(request):
-    if request.method=='POST':
-        username=request.POST.get('username')
-        password=request.POST.get('password')
-        
-        # Authenticate the user
-        user = authenticate(request,username=username, password=password)
-        
-        if user is not None:
-            #User credentials are valid, log in the user
+            #Log in the user
             login(request,user)
             return redirect('home')
-        else:
-            #User credentials are not valid
-            error_message='Invalid username or password'
-            return render(request,'main/login.html',{error_message:error_message})
+        
+        elif 'signinbtn' in request.POST:   
+            
+            username=request.POST.get('username2')
+            password=request.POST.get('password2')
+        
+            # Authenticate the user
+            user = authenticate(request,username=username, password=password)
+        
+            if user is not None:
+                #User credentials are valid, log in the user
+                login(request,user)
+                return redirect('home')
+            else:
+                #User credentials are not valid
+                error_message='Invalid username or password'
+                return render(request,'main/login.html',{error_message:error_message}) 
     else:
         return render(request,'main/login.html')
-    
+               
 @login_required
 def home(request):
     username = request.user.username

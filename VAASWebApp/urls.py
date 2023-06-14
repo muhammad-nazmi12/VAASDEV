@@ -5,8 +5,11 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 #URLConf
 urlpatterns=[
-    path('register/',views.signup,name='register'),
-    path('login/',views.signin,name='signin'),
+    path('signup',views.signup,name='signup'),
+    path('signin',views.signin,name='signin'),
+    #path('register/',views.signup,name='register'),
+    #path('login/',views.signin,name='signin'),
+    path('',views.main,name='main'),
     path('home/',views.home, name='home'),
     path('logout/', views.logout_view, name='logout'),
     path('sampledesign/',views.sampledesign,name='sampledesign'),

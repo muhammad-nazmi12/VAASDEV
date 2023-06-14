@@ -11,27 +11,27 @@
             <!--Signup Form-->
         <div class="signupform">
             <h2 class="signupform-title" id="signup"><span>or</span>Sign up</h2>
-                <form method="POST" action="{% url 'register' %}">  
+                <form method="POST" action="{% url 'main' %}">  
                     {% csrf_token %}
                     <div class="signupform-holder">
-                        <input type="text" class='input' placeholder="Username" name="username" required>
-                        <input type="email" class='input' placeholder="Email" name="email" required>
-                        <input type="password" class='input' placeholder="Password" name="password" required>
+                        <input type="text" class='input' placeholder="Username" name="username1" required>
+                        <input type="email" class='input' placeholder="Email" name="email1" required>
+                        <input type="password" class='input' placeholder="Password" name="password1" required>
                     </div>
-                    <button type="submit" class="signup-submit-btn">Sign up</button>
+                    <button type="submit" class="signup-submit-btn" name="signupbtn">Sign up</button>
                 </form>
             </div>
             <!--SignIn Form-->
-            <form method="POST" action="{% url 'signin' %}">
+            <form method="POST" action="{% url 'main' %}">
                 {% csrf_token %}
                 <div class="login slide-up">
                     <div class="center">
                         <h2 class="loginform-title" id="login"><span>or</span>Log in</h2>
                         <div class="loginform-holder">
-                            <input type="text" class='input' placeholder="Username" name="username" required>
-                            <input type="password" class='input' placeholder = "Password" name="password" required>
+                            <input type="text" class='input' placeholder="Username" name="username2" required>
+                            <input type="password" class='input' placeholder = "Password" name="password2" required>
                         </div>
-                        <button type="submit" class="login-submit-btn">Log in</button>
+                        <button type="submit" class="login-submit-btn" name="signinbtn">Log in</button>
                     </div>
                 </div>
             </form>

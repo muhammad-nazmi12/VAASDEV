@@ -155,7 +155,8 @@ FIREBASE_CONFIG ={
     'appId':os.environ.get('1:17847074099:web:8f9be7a62bb610c8a39246'),
 }
 
+
 #Login page
-LOGIN_URL = 'https://vaasdev-3b70d.web.app//login/'
+LOGIN_URL = '127.0.0.1:8000/signin/'
 #Login Redirect URL (After Login it, need to go home page)
-LOGIN_REDIRECT_URL = 'https://vaasdev-3b70d.web.app/home/'
+LOGIN_REDIRECT_URL = '127.0.0.1:8000/home/'
