@@ -6,10 +6,12 @@ from django.contrib.auth import logout,authenticate,login,get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.conf import settings
 from django.contrib.auth.models import User
 from .models import Document,AccidentReport,ReferenceDoc,Person,Vehicle,Location
 from django.contrib import messages
 from django.db.models import Count
+from django.shortcuts import get_object_or_404
 import matplotlib.pyplot as plt
 import geocoder
 import firebase_admin
@@ -42,6 +44,13 @@ def signup(request):
             
             if conpassword==password:
                 user = User.objects.create_user(username=username,email=email,password=password)
+                
+                #Send registration email to the user
+                subject='Welcome to VAAS System'
+                message='Thank you for registering on our website.'
+                from_email=settings.DEFAULT_FROM_EMAIL
+                recipient_list=[user.email]
+                send_mail(subject,message,from_email,recipient_list)
                 login(request,user)
                 return redirect('home')
             else:
@@ -70,137 +79,6 @@ def signin(request):
             return render(request,'userform/signin.html',{'error_message':error_message})
     return render(request,'userform/signin.html')
 
-#def signup(request):
-#    if request.method == 'POST':
-#        form = DjangoUserCreationForm(request.POST)
-#        if form.is_valid():
-#            user = form.save()
-#            username = form.cleaned_data.get('username')
-#            password = form.cleaned_data.get('password')
-#            email = form.cleaned_data.get('email')
-            
-            #Check if the username is already taken
-#            if User.objects.filter(username=username).exists():
-#                error_message = 'Username is already taken'
-#                return render(request,'main/login.html',{'error_message':error_message})
-            
-            #Log in the user after registration
-#            login(request,user)
-            
-            #Send a notification email to the registered user
-#            send_mail(
-#                'Registration completed',
-#                'Thank you for registering. Your account has been created successfully',
-#                'noreply@vaasdev.com',
-#                [email],
-#                fail_silently=False,
-#            )
-            
-#            return redirect('login')
-#        else:
-#            form = UserCreationForm()
-        
-#    return render(request,'main/login.html',{'form': form})
-
-#def signup(request):
-#    if request.method == 'POST':
-#        username=request.POST.get('username')
-#        password=request.POST.get('password')
-#        email=request.POST.get('email')
-#        
-#        #Check if the username is already taken
-#        if User.objects.filter(username=username).exists():
-#                error_message = 'Username is already taken'
-#                return render(request,'main/login.html',{'error_message':error_message})
-            
-        
-#        #Create a new user and save to the database
-#        user=User(username=username,password=password,email=email)
-#        user.save()
-        
-#        #Send a notification email to the registered user
-#        send_mail(
-#                'Registration completed',
-#                'Thank you for registering. Your account has been created successfully',
-#                'noreply@vaasdev.com',
-#                [email],
-#               fail_silently=False,
-#            )
-        
-#        #Log in the user
-#        login(request,user)
-        
-#        #Redirect to the desired page
-#        return redirect('home')
-#    else:     
-#        return render(request,'main/login.html')
-            
-#def signin(request):
-#    if request.method=='POST':
-#        username=request.POST.get('username')
-#        password=request.POST.get('password')
-        
-#        # Authenticate the user
-#        user = authenticate(request,username=username, password=password)
-        
-#        if user is not None:
-            #User credentials are valid, log in the user
-#            login(request,user)
-#            return redirect('home')
-#        else:
-#            #User credentials are not valid
-#            error_message='Invalid username or password'
-#            return render(request,'main/login.html',{error_message:error_message})
-#    else:
-#        return render(request,'main/login.html')
-
-def main(request):
-    if request.method == 'POST':
-        if 'signupbtn' in request.POST:
-            username=request.POST.get('username1')
-            password=request.POST.get('password1')
-            email=request.POST.get('email1')
-            
-            #Check if the username is already taken
-            if User.objects.filter(username=username).exists():
-                error_message = 'Username is already taken'
-                return render(request,'main/login.html',{'error_message':error_message})
-            
-            #Create a new user and save to the database
-            user=User.objects.create_user(username=username,password=password,email=email)
-            
-            #Send a notification email to the registered user
-            send_mail(
-                'Registration completed',
-                'Thank you for registering. Your account has been created successfully',
-                'noreply@vaasdev.com',
-                [email],
-                fail_silently=False,
-            )
-        
-            #Log in the user
-            login(request,user)
-            return redirect('home')
-        
-        elif 'signinbtn' in request.POST:   
-            
-            username=request.POST.get('username2')
-            password=request.POST.get('password2')
-        
-            # Authenticate the user
-            user = authenticate(request,username=username, password=password)
-        
-            if user is not None:
-                #User credentials are valid, log in the user
-                login(request,user)
-                return redirect('home')
-            else:
-                #User credentials are not valid
-                error_message='Invalid username or password'
-                return render(request,'main/login.html',{error_message:error_message}) 
-    else:
-        return render(request,'main/login.html')
-               
 @login_required
 def home(request):
     username = request.user.username
@@ -475,6 +353,9 @@ def testpopup2(request):
 @login_required
 def createcase_view(request): 
     if request.method == 'POST':
+         # Retrieve the currently logged-in user
+        current_user = request.user
+        
         #Process the form data
         title = request.POST.get('title')
         description = request.POST.get('description')
@@ -484,18 +365,18 @@ def createcase_view(request):
         person_types = request.POST.getlist('person_type[]')
         driver_licenses = request.POST.getlist('driver_license[]')
         injury = request.POST.getlist('injuries[]')
-        vehicle_model = request.POST.get('vehicle_model')
-        vehicle_type = request.POST.get('vehicle_type')
-        plate_number = request.POST.get('plate_number')
-        vehicle_owner_name = request.POST.get('vehicle_owner')
-        vehicle_damage = request.POST.get('vehicle_damage')
+        vehicle_models = request.POST.getlist('vehicle_models[]')
+        vehicle_types = request.POST.getlist('vehicle_types[]')
+        plate_numbers = request.POST.getlist('plate_numbers[]')
+        vehicle_owners = request.POST.getlist('vehicle_owners[]')
+        vehicle_damages = request.POST.getlist('vehicle_damages[]')
         location_name = request.POST.get('location_name')
         location_address = request.POST.get('location_address')
         location_longcoord = request.POST.get('location_longcoord')
         location_latcoord = request.POST.get('location_latcoord')
-        ref_item = request.POST.get('ref_item')
+        ref_items = request.POST.getlist('ref_item[]')
         owned_by = request.POST.get('owned_by')
-        ref_type = request.POST.get('ref_type')
+        ref_types = request.POST.getlist('ref_type[]')
         
         #Create an AccidentReport object and save it to the database
         accident_report = AccidentReport.objects.create(
@@ -524,15 +405,32 @@ def createcase_view(request):
             )
             
             person.save()
-        vehicle_owner = Person.objects.get(PersonName=vehicle_owner_name)
-        vehicle = Vehicle.objects.create(
-            VehicleModel = vehicle_model,
-            VehicleType = vehicle_type,
-            PlateNumber = plate_number,
-            VehicleOwnerName = vehicle_owner,
-            VehicleDamage = vehicle_damage,
-            CaseID = accident_report
-        )
+        
+        for i in range(len(vehicle_models)):
+            
+            vehicle_model=vehicle_models[i]
+            vehicle_type=vehicle_types[i]
+            plate_number=plate_numbers[i]
+            vehicle_owner = vehicle_owners[i]
+            vehicle_damage = vehicle_damages[i]
+            #Check if the vehicle owner exists or create a new one
+            vehicle_owner =get_object_or_404(Person,PersonName=vehicle_owner)
+            
+            if vehicle_owner is None:
+                #Display an error message or handle the situation accordingly
+                return HttpResponse("Vehicle owner does not exists.")
+
+            #Create a vehicle object and establish the foreign key relationship        
+            vehicle = Vehicle.objects.create(
+                VehicleModel = vehicle_model,
+                VehicleType = vehicle_type,
+                PlateNumber = plate_number,
+                VehicleOwnerName = vehicle_owner,
+                VehicleDamage = vehicle_damage,
+                CaseID = accident_report
+            )
+            
+            vehicle.save()
         
         location = Location.objects.create(
             LocationName = location_name,
@@ -541,26 +439,32 @@ def createcase_view(request):
             CoordLat = location_latcoord,
             CaseID = accident_report
         )
-        
-        referdoc = ReferenceDoc.objects.create(
-            RefItem = ref_item,
-            OwnedBy = owned_by,
-            RefType = ref_type,
-            CaseID = accident_report
-        )
+        for i in range(len(ref_items)):
+            ref_item=ref_items[i]
+            ref_type=ref_types[i]
+            
+            referdoc = ReferenceDoc.objects.create(
+                RefItem = ref_item,
+                OwnedBy = current_user.username,
+                RefType = ref_type,
+                CaseID = accident_report
+            )
+            
+            referdoc.save()
             
         # Save the model objects to the database
         accident_report.save()
-        
-        vehicle.save()
+
         location.save()
-        referdoc.save()
+        
 
         #Display a success message
         messages.success(request,'Data saved successfully!')
         
-        return HttpResponseRedirect('/VAASDEV/search/') 
+        return HttpResponseRedirect('/search/') 
         #Return a response or redirect as needed
     else:
         
         return render(request,'createcase/popup.html')
+    
+    

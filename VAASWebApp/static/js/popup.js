@@ -93,10 +93,4 @@ function addReferenceField(){
         document.getElementById("reference_fields").appendChild(entry);
 }
 
-var centerpoint=[5.5341995,108.5584311];
-var map = L.map('map2').setView(centerPoint,6);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>contributors',
-    maxZoom: 18,
-}).addTo(map);

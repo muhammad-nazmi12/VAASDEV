@@ -20,7 +20,7 @@ $(document).ready(function() {
   console.log("reportlib.js loaded"); 
 
   $('#createcase-popup').click(function() {
-      openPopup('/VAASDEV/create/');
+      openPopup('/create/');
   });
 
   $('#popup-close').click(function() {

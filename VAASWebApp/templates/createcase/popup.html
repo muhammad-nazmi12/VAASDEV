@@ -1,5 +1,5 @@
 <h3>Create Case Form</h3>
-<form method="POST" action="{% url 'create' %}">
+<form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
     {% csrf_token %}
     
     <!--Form Fields - Accident Report and Person Detail-->
