@@ -77,7 +77,7 @@ class ReferDocSearchForm(forms.Form):
 
 class DailyPieChartForm(forms.Form):
     DailyByChoice=[
-        ('','Current Day'),
+        ('','Today'),
         ('Mon','Monday'),
         ('Tue','Tuesday'),
         ('Wed','Wednesday'),
@@ -93,7 +93,7 @@ class DailyPieChartForm(forms.Form):
 
 class WeeklyBarChartForm(forms.Form):
     WeeklyByChoice = [
-        ('','Current Week'),
+        ('','This Week'),
         ('W1','Week 1'),
         ('W2','Week 2'),
         ('W3','Week 3'),
@@ -104,7 +104,7 @@ class WeeklyBarChartForm(forms.Form):
 
 class MonthlyGraphBarForm(forms.Form):
     MonthlyByChoice=[
-        ('','Current Month'),
+        ('','This Month'),
         ('Jan','January'),
         ('Feb','February'),
         ('Mar','March'),

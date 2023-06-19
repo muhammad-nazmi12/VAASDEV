@@ -10,7 +10,7 @@
             <button id="createcase-popup">Create Case</button>
         </div>
         <div class="SearchField">
-            <form method="get" action"{% url 'reportlib' %}">
+            <form method="get" action="{% url 'reportlib' %}">
             {% csrf_token %}
             <div class = "search-form">
                 <label for='{{ form1.search_query.id_for_label}}'>Search:</label>
@@ -58,7 +58,7 @@
     </div>
     <div class="CRDisplay2" id="myCRDisplay2">
         <div class='SearchField2'>
-            <form method="get" action"{% url 'reportlib' %}">
+            <form method="get" action="{% url 'reportlib' %}">
                 {% csrf_token %}
                 <div class = "search-form2">
                     <label for='{{ form2.search_query2.id_for_label}}'>Search:</label>

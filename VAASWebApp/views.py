@@ -289,7 +289,7 @@ def analytical(request):
             #accident_reports = accident_reports.filter(field3 ='value3')
             pass
         
-    context ={'DailyForm':dailyform,'WeeklyForm':weeklyform,'MonthlyForm':monthlyform}
+    context ={'dailyform':dailyform,'weeklyform':weeklyform,'monthlyform':monthlyform}
     return render(request,'main/analytical.html',context)
 
 @login_required

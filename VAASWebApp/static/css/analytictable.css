@@ -1,0 +1,35 @@
+.Daily-form{
+    width:100%;
+    position:relative;
+    top:16px;
+    left:165px;
+}
+
+#dailyDropdown{
+    width:130px;
+    height:20px;
+}
+
+.Weekly-form{
+    width:100%;
+    position:relative;
+    top:16px;
+    left:175px;
+}
+
+#weeklyDropdown{
+    width:130px;
+    height:20px;
+}
+
+.Monthly-form{
+    width:100%;
+    position:relative;
+    top:2px;
+    left:245px;
+}
+
+#monthlyDropdown{
+    width:130px;
+    height:20px;
+}

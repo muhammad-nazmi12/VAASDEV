@@ -6,17 +6,36 @@
         <h2>VAAS Analytical Page</h2>
     </div>
     <div class="AnalyticalTable" id="myAnalyticalTable">
-        <div class="Table1" id="myTable1">
-            <h4>Daily Case Report</h4>
-        </div>
-        <div class="Table2" id="myTable2">
-            <h4>Weekly Case Report</h4>
-        </div>
-        <div class="Table3" id="myTable3">
-            <h4>Monthly / Yearly Case Report</h4>
-        </div>
+        <form method="get" action="{% url 'analytical' %}">
+            {% csrf_token %}
+            <div class="Table1" id="myTable1">
+                <h4>Daily Case Report</h4>
+                <div class="Daily-form">
+                    <label for="{{ dailyform.DailyByOrder.id_for_label }}">Day: </label>
+                    {{ dailyform.DailyByOrder }}
+                    <div id="graphContainer"></div>
+                </div>
+            </div>
+            <div class="Table2" id="myTable2">
+                <h4>Weekly Case Report</h4>
+                <div class="Weekly-form">
+                    <label for="{{ weeklyform.WeeklyByOrder.id_for_label }}">Week: </label>
+                    {{ weeklyform.WeeklyByOrder }}
+                    <div id="graphContainer"></div>
+                </div>
+            </div>
+            <div class="Table3" id="myTable3">
+                <h4>Monthly / Yearly Case Report</h4>
+                <div class="Monthly-form">
+                    <label for="{{ monthlyform.MonthlyByOrder.id_for_label }}">Month: </label>
+                    {{ monthlyform.MonthlyByOrder }}
+                </div>
+                <div id="graphContainer"></div>
+            </div>
+        </form>
     </div>
 </div>
 {% load static %}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="{% static '/js/analyticaljs.js' %}"></script>
 {% endblock %}
