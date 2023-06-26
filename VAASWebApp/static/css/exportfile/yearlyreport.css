@@ -1,0 +1,53 @@
+#yearlyGraphPreview{
+    position:absolute;
+    width:300px;
+    height:400px;
+    top:50px;
+    left:10px;
+    border: 2px solid rgb(175, 163, 103);
+}
+
+#yearlyGraphForm{
+    position:absolute;
+    width:300px;
+    height:500px;
+    top:50px;
+    left:350px;
+}
+
+.yearly_field{
+    position:relative;
+    top:10px;
+}
+
+#yearly_fields{
+    position: relative;
+    width:100px;
+    left:53px;
+}
+
+.yearly_vehicletype{
+    position:relative;
+    top:30px;
+}
+
+#yearly_vtfield{
+    position: relative;
+    width:100px;
+}
+
+.yearly_buttons{
+    position:relative;
+    top: 50px;
+}
+
+#previewBtn{
+    position: relative;
+    width:80px;
+}
+
+#exportBtn{
+    position: relative;
+    width:80px;
+    left:25px;
+}

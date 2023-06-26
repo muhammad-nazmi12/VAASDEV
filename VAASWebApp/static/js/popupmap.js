@@ -1,12 +1,22 @@
-var centerpoint=[5.5341995,108.5584311];
-var mapElement =document.getElementById("map2");
+//Define a function to retrieve and display the map data
+function displayMap(){
+    fetch('/map-data')
+    .then(response=>response.json())
+    .then(data=>{
+        //Process the received data and display the map
+        var centerpoint=[data.latitude,data.longitude];
+        var mapElement = document.getElementById('popup-map');
+        var mapDisplay =L.map(mapElement).setView(centerpoint,6);
 
-//Check if the map container already has an initialized map
-if(mapElement && !mapElement._leaflet_id){
-    var map = L.map("map2").setView(centerpoint,6);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>contributors',
-        maxZoom: 18,
-    }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+            attribution: 'Map data @ <a href="https://openstreetmap.org"> OpenStreetMap </a> contributors',
+            maxZoom:18,
+        }).addTo(mapDisplay);
+    })
+    .catch(error=>{
+        console.error('Error: ', error);
+    });
 }
+
+//Call the displayMap fnction to retrieve and display the map
+displayMap();

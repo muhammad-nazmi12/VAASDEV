@@ -111,13 +111,13 @@
         {% include 'createcase/popup.html' %}
     </div>
     <button id="popup-close">Close</button>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
 </div>
 
 {% load static %}
 <link rel="stylesheet" href="{% static '/css/libpopup.css' %}">
-<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="{% static '/js/reportlibjs.js' %}"></script>
 <script src="{% static '/js/popup.js ' %}"></script>
-<script src="{% static '/js/popupmap.js' %}"></script>
 {% endblock %}

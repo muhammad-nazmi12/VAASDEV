@@ -12,8 +12,13 @@
                 <h4>Daily Case Report</h4>
                 <div class="Daily-form">
                     <label for="{{ dailyform.DailyByOrder.id_for_label }}">Day: </label>
-                    {{ dailyform.DailyByOrder }}
-                    <div id="graphContainer"></div>
+                    <select id="dailyDropdown" name="{{ dailyform.DailyByChoice }}">
+                        <option value="" {% if daily_default == '' %} selected {% endif %}> Current Day</option>
+                        {% for value,label in dailyform.DailyByChoice.field.choices %}
+                            <option value = "{{ value }}" {% if daily_default == value %} selected {% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                    <div id="dailyGraphContainer"></div>
                 </div>
             </div>
             <div class="Table2" id="myTable2">
@@ -21,7 +26,7 @@
                 <div class="Weekly-form">
                     <label for="{{ weeklyform.WeeklyByOrder.id_for_label }}">Week: </label>
                     {{ weeklyform.WeeklyByOrder }}
-                    <div id="graphContainer"></div>
+                    <div id="weeklyGraphContainer"></div>
                 </div>
             </div>
             <div class="Table3" id="myTable3">
@@ -30,7 +35,7 @@
                     <label for="{{ monthlyform.MonthlyByOrder.id_for_label }}">Month: </label>
                     {{ monthlyform.MonthlyByOrder }}
                 </div>
-                <div id="graphContainer"></div>
+                <div id="monthlyGraphContainer"></div>
             </div>
         </form>
     </div>

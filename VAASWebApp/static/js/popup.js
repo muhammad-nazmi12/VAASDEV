@@ -23,7 +23,7 @@ function addPersonField(){
     entry.setAttribute("id","person_entry");
     entry.innerHTML = 
     '<label for="person_name">Name: </label>'+
-    '<input type="text" id="person_name" name="person_name">'+
+    '<input type="text" id="person_name" name="person_name" onchange="updateVehicleOwnerOptions()">'+
     '<br>'+
     '<label for="person_age">Age: </label>'+
     '<input type="number" id="person_age" name="person_age">'+
@@ -64,7 +64,9 @@ function addVehicleField(){
     '<input type="text" id="plate_number" name="plate_number">'+
     '<br>'+
     '<label for="vehicle_owner">Owner: </label>'+
-    '<input type="text" id="vehicle_owner" name="vehicle_owner">'+
+    '<select id="vehicle_owner" name="vehicle_owner">'+
+    '<option value=""></option>'+
+    '</select>'+
     '<br>'+
     '<label for="vehicle_damage">Damages: </label>'+
     '<textarea id="vehicle_damage" name="vehicle_damage"></textarea>'+
@@ -93,4 +95,22 @@ function addReferenceField(){
         document.getElementById("reference_fields").appendChild(entry);
 }
 
+function updateVehicleOwnerOptions(){
+    var personNames = document.querySelectorAll("#person_fields input[name='person_name']");
+    var vehicleOwnerDropdown = document.getElementById("vehicle_owner");
+
+    //Clear existing options
+    vehicleOwnerDropdown.innerHTML = '<option value=""></option>';
+
+    //Add person names as options
+    for(var i=0;i<personNames.length;i++){
+        var personName = personNames[i].value;
+        if(personName.trim()!==''){
+            var option=document.createElement('option');
+            option.value=personName;
+            option.textContent=personName;
+            vehicleOwnerDropdown.appendChild(option);
+        }
+    }
+}
 

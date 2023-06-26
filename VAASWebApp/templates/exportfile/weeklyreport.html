@@ -1,0 +1,39 @@
+<html>
+    <head>
+        {% load static %}
+            <link rel="stylesheet" href="{% static '/css/exportfile/weeklyreport.css' %}">
+    </head>
+    <body>
+        <h4>Weekly Analysis Report Preview</h4>
+        <div id="weeklyGraphPreview"></div>
+        <div id="weeklyGraphForm">
+            <div class="weekly_field">
+                <label for="week">Week: </label>
+                <select value="week" name="week" id="weekly_fields">
+                    <option value=""></option>
+                    <option value="1">Week 1</option>
+                    <option value="2">Week 2</option>
+                    <option value="3">Week 3</option>
+                    <option value="4">Week 4</option>
+                </select>
+            </div>
+            <br>
+            <div class="weekly_vehicletype">
+                <label for="vehicle_type">Vehicle Type: </label>
+                <select value="vehicle_type" name="vehicle_type" id="weekly_vtfield">
+                    <option value=""></option>
+                    <option value="Car">Car</option>
+                    <option value="Motorcycle">Motorcycle</option>
+                    <option value="Truck">Truck</option>
+                    <option value="Lorry">Lorry</option>
+                    <option value="All">All Type</option>
+                </select>
+            </div>
+            <br>
+            <div class="weekly_buttons">
+                <button type="button" id="previewBtn">Preview</button>
+                <button type="button" id="exportBtn">Export</button>
+            </div>
+        </div>
+    </body>    
+</html>

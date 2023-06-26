@@ -1,0 +1,47 @@
+<html>
+    <head>
+        {% load static %}
+            <link rel="stylesheet" href="{% static '/css/exportfile/monthlyreport.css' %}">
+    </head>
+    <body>
+        <h4>Monthly Analysis Report Preview</h4>
+        <div id="monthlyGraphPreview"></div>
+        <div id="monthlyGraphForm">
+            <div class="monthly_field">
+                <label for="month">Month: </label>
+                <select value="month" name="month" id="monthly_fields">
+                    <option value=""></option>
+                    <option value="Jan">January</option>
+                    <option value="Feb">February</option>
+                    <option value="Mar">March</option>
+                    <option value="Apr">April</option>
+                    <option value="May">May</option>
+                    <option value="Jun">June</option>
+                    <option value="Jul">July</option>
+                    <option value="Aug">August</option>
+                    <option value="Sep">September</option>
+                    <option value="Oct">October</option>
+                    <option value="Nov">November</option>
+                    <option value="Dec">December</option>
+                </select>
+            </div>
+            <br>
+            <div class="monthly_vehicletype">
+                <label for="vehicle_type">Vehicle Type: </label>
+                <select value="vehicle_type" name="vehicle_type" id="monthly_vtfield">
+                    <option value=""></option>
+                    <option value="Car">Car</option>
+                    <option value="Motorcycle">Motorcycle</option>
+                    <option value="Truck">Truck</option>
+                    <option value="Lorry">Lorry</option>
+                    <option value="All">All Type</option>
+                </select>
+            </div>
+            <br>
+            <div class="monthly_buttons">
+                <button type="button" id="previewBtn">Preview</button>
+                <button type="button" id="exportBtn">Export</button>
+            </div>
+        </div>
+    </body>    
+</html>

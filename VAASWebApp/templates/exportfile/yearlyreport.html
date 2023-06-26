@@ -1,0 +1,40 @@
+<html>
+    <head>
+        {% load static %}
+            <link rel="stylesheet" href="{% static '/css/exportfile/yearlyreport.css' %}">
+    </head>
+    <body>
+        <h4>Yearly Analysis Report Preview</h4>
+        <div id="yearlyGraphPreview"></div>
+        <div id="yearlyGraphForm">
+            <div class="yearly_field">
+                <label for="year">Year: </label>
+                <select value="year" name="year" id="yearly_fields">
+                    <option value=""></option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                </select>
+            </div>
+            <br>
+            <div class="yearly_vehicletype">
+                <label for="vehicle_type">Vehicle Type: </label>
+                <select value="vehicle_type" name="vehicle_type" id="yearly_vtfield">
+                    <option value=""></option>
+                    <option value="Car">Car</option>
+                    <option value="Motorcycle">Motorcycle</option>
+                    <option value="Truck">Truck</option>
+                    <option value="Lorry">Lorry</option>
+                    <option value="All">All Type</option>
+                </select>
+            </div>
+            <br>
+            <div class="yearly_buttons">
+                <button type="button" id="previewBtn">Preview</button>
+                <button type="button" id="exportBtn">Export</button>
+            </div>
+        </div>
+    </body>    
+</html>

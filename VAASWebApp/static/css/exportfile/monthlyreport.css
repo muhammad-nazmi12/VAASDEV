@@ -1,0 +1,53 @@
+#monthlyGraphPreview{
+    position:absolute;
+    width:300px;
+    height:400px;
+    top:50px;
+    left:10px;
+    border: 2px solid rgb(175, 163, 103);
+}
+
+#monthlyGraphForm{
+    position:absolute;
+    width:300px;
+    height:500px;
+    top:50px;
+    left:350px;
+}
+
+.monthly_field{
+    position:relative;
+    top:10px;
+}
+
+#monthly_fields{
+    position: relative;
+    width:100px;
+    left:40.5px;
+}
+
+.monthly_vehicletype{
+    position:relative;
+    top:30px;
+}
+
+#monthly_vtfield{
+    position: relative;
+    width:100px;
+}
+
+.monthly_buttons{
+    position:relative;
+    top: 50px;
+}
+
+#previewBtn{
+    position: relative;
+    width:80px;
+}
+
+#exportBtn{
+    position: relative;
+    width:80px;
+    left:25px;
+}

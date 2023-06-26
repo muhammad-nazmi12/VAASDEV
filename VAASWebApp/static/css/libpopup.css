@@ -150,19 +150,6 @@
   left:47px;
 }
 
-#map2{
-  width:500px;
-  height:300px;
-}
-
-#map2>.leaflet-container{
-  position:absolute;
-  top:0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
 #reference_fields{
   border: 3px solid blue; 
   width:800px;

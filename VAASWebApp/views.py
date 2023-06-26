@@ -13,6 +13,7 @@ from django.contrib import messages
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 import matplotlib.pyplot as plt
+import reportlab
 import geocoder
 import firebase_admin
 from firebase_admin import credentials
@@ -52,7 +53,7 @@ def signup(request):
                 recipient_list=[user.email]
                 send_mail(subject,message,from_email,recipient_list)
                 login(request,user)
-                return redirect('home')
+                return redirect('home/')
             else:
                 error_message = 'The password not same'
                 return render(request, 'userform/signup.html',{'error_message':error_message}) 
@@ -72,7 +73,7 @@ def signin(request):
         if user is not None:
             #User crdentials are valid, log in the user
             login(request,user)
-            return redirect('home')
+            return redirect('home/')
         else:
             #User crededtials are not valid
             error_message="Invalid username or password"
@@ -207,9 +208,15 @@ def analytical(request):
     dailyform = DailyPieChartForm(request.GET or None)
     weeklyform = WeeklyBarChartForm(request.GET or None)
     monthlyform = MonthlyGraphBarForm(request.GET or None)
+    
+    #Set the default selections for each dropdown
+    daily_default=''
+    weekly_default=''
+    monthly_default=''
+    
        
     if dailyform.is_valid():
-        dailyoption = dailyform.cleaned_data['DailyByChoice']
+        dailyoption = dailyform.cleaned_data['DailyByOrder']
      
         if  dailyoption == 'Mon':
             #accident_reports = accident_reports.filter(field1 ='value1')
@@ -234,7 +241,7 @@ def analytical(request):
             pass
         
     if weeklyform.is_valid():
-        weeklyoption = weeklyform.cleaned_data['WeeklyByChoice']
+        weeklyoption = weeklyform.cleaned_data['WeeklyByOrder']
            
         if  weeklyoption == 'W1':
             #accident_reports = accident_reports.filter(field1 ='value1')
@@ -250,7 +257,7 @@ def analytical(request):
             pass
         
     if monthlyform.is_valid():
-        monthlyoption = monthlyform.cleaned_data['MonthlyByChoice']
+        monthlyoption = monthlyform.cleaned_data['MonthlyByOrder']
             
         if  monthlyoption == 'Jan':
             #accident_reports = accident_reports.filter(field1 ='value1')
@@ -289,7 +296,14 @@ def analytical(request):
             #accident_reports = accident_reports.filter(field3 ='value3')
             pass
         
-    context ={'dailyform':dailyform,'weeklyform':weeklyform,'monthlyform':monthlyform}
+    context ={
+        'dailyform':dailyform,
+        'weeklyform':weeklyform,
+        'monthlyform':monthlyform,
+        'daily_default':daily_default,
+        'weekly_default':weekly_default,
+        'monthly_default':monthly_default
+        }
     return render(request,'main/analytical.html',context)
 
 @login_required
@@ -467,4 +481,26 @@ def createcase_view(request):
         
         return render(request,'createcase/popup.html')
     
+
+def map_data_view(request):
+    #Fetch the map data from a data source
+    map_data={
+        'latitude':5.5341995,
+        'longitude':108.5584311,
+    }
     
+    #Return the map data as a JSON response
+    return JsonResponse(map_data)
+
+
+def daily_data(request):
+    return render(request,'exportfile/dailyreport.html')
+
+def weekly_data(request):
+    return render(request,'exportfile/weeklyreport.html')
+
+def monthly_data(request):
+    return render(request,'exportfile/monthlyreport.html')
+
+def yearly_data(request):
+    return render(request,'exportfile/yearlyreport.html')
