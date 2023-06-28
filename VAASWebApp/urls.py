@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
 from .documenthandler import DocumentExportView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -8,7 +8,7 @@ urlpatterns=[
     #Signin and Signup Page
     path('signup/',views.signup,name='signup'),
     path('signin/',views.signin,name='signin'),
-    #Home/ Default Page
+    #Home / Default Page
     path('home/',views.home, name='home'),
     path('logout/', views.logout_view, name='logout'),
     #Mapview Page
@@ -30,6 +30,7 @@ urlpatterns=[
     path('maptest/',views.map_view,name="maptest"),
     #Map Data 
     path('map-data',views.map_data_view,name='map_data'),
+    #Document Template
     #Analytics Report for Daily,Weekly,Monthly and Yearly
     path('daily-data/',views.daily_data,name='export_daily'),
     path('weekly-data/',views.weekly_data,name='export_weekly'),

@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('__debug__/', include('debug_toolbar.urls')),
     path('', include('VAASWebApp.urls')),
+    #path('documents/',include('documents.urls')),
     #path('login/',CustomLoginView.as_view(),name='login'),
     #path('logout/',logout_view,name='logout'),
     #path('home/',home,name='home'),

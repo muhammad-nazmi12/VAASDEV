@@ -134,8 +134,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT=os.path.join(BASE_DIR,'static')
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR,'static/viewerjs/'),
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -155,6 +159,7 @@ FIREBASE_CONFIG ={
     'appId':os.environ.get('1:17847074099:web:8f9be7a62bb610c8a39246'),
 }
 
+#Document Upload Path
 
 #Login page
 LOGIN_URL = '127.0.0.1:8000/signin/'
