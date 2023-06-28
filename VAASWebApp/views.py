@@ -15,17 +15,17 @@ from django.shortcuts import get_object_or_404
 import matplotlib.pyplot as plt
 import reportlab
 import geocoder
-import firebase_admin
-from firebase_admin import credentials
+#import firebase_admin
+#from firebase_admin import credentials
 
 #User =  get_user_model
 
 #specify the path to the service account key JSON file
-service_account_path = 'D:/Project/Python/secretkey/vaasdev-service-account-key.json'
+#service_account_path = 'D:/Project/Python/secretkey/vaasdev-service-account-key.json'
 
 #Initialize Firebase with the service account key
-cred = credentials.Certificate(service_account_path)
-firebase_admin.initialize_app(cred)
+#cred = credentials.Certificate(service_account_path)
+#firebase_admin.initialize_app(cred)
 
 # Create your views here.
 def signup(request):
