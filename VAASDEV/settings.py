@@ -136,9 +136,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT=os.path.join(BASE_DIR,'static')
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'static/viewerjs/'),
-]
+#STATICFILES_DIRS=[
+#    os.path.join(BASE_DIR,'static/viewerjs/'),
+#]
 
 
 # Default primary key field type
@@ -162,7 +162,7 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 #Document Upload Path
 
 #Login page
-LOGIN_URL = '127.0.0.1:8000/signin/'
+LOGIN_URL = '127.0.0.1:8000'
 #Login Redirect URL (After Login it, need to go home page)
 LOGIN_REDIRECT_URL = '127.0.0.1:8000/home/'
 

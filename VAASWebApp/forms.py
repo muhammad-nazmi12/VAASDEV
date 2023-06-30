@@ -140,7 +140,7 @@ class VForm(forms.ModelForm):
 class LForm(forms.ModelForm):
     class Meta:
         model = Location
-        fields = ['LocationName','LocationAddress']
+        fields = ['LocationName','States']
 
 class RDForm(forms.ModelForm):
     class Meta:

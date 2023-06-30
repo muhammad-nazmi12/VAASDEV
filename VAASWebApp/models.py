@@ -50,7 +50,7 @@ class AccidentReport(models.Model):
    
 class Location(models.Model):
     LocationName = models.CharField(max_length=255,primary_key=True)
-    LocationAddress = models.CharField(max_length=255,default='')
+    States = models.CharField(max_length=255,default='')
     CoordLong = models.FloatField(default=0)
     CoordLat = models.FloatField(default=0)
     CaseID = models.ForeignKey(AccidentReport, on_delete=models.CASCADE,null=True)

@@ -13,7 +13,7 @@ from django.contrib import messages
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 import matplotlib.pyplot as plt
-import reportlab
+from reportlab.pdfgen import canvas
 import geocoder
 #import firebase_admin
 #from firebase_admin import credentials
@@ -385,7 +385,7 @@ def createcase_view(request):
         vehicle_owners = request.POST.getlist('vehicle_owners[]')
         vehicle_damages = request.POST.getlist('vehicle_damages[]')
         location_name = request.POST.get('location_name')
-        location_address = request.POST.get('location_address')
+        states = request.POST.get('states')
         location_longcoord = request.POST.get('location_longcoord')
         location_latcoord = request.POST.get('location_latcoord')
         ref_items = request.POST.getlist('ref_item[]')
@@ -448,7 +448,7 @@ def createcase_view(request):
         
         location = Location.objects.create(
             LocationName = location_name,
-            LocationAddress = location_address,
+            States = states,
             CoordLong = location_longcoord,
             CoordLat = location_latcoord,
             CaseID = accident_report
@@ -492,7 +492,29 @@ def map_data_view(request):
     #Return the map data as a JSON response
     return JsonResponse(map_data)
 
-
+def generate_document(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST)
+        if form.is_valid():
+            #Process form data
+            data = form.cleaned_data
+            
+            #Generate the PDF document using ReportLab
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+            
+            p =  canvas.Canvas(response)
+            p.drawString(100,750,'Document Content: ')
+            p.drawString(100,700, data['content']) # Assuming 'content' is a form field
+            p.showPage()
+            p.save()
+            
+            return response
+    else:
+        form=DocumentForm()
+        
+    return render(request,'doctesting/generate_doc.html',{'form':form})
+            
 def daily_data(request):
     return render(request,'exportfile/dailyreport.html')
 

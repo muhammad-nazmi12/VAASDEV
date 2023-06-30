@@ -7,7 +7,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns=[
     #Signin and Signup Page
     path('signup/',views.signup,name='signup'),
-    path('signin/',views.signin,name='signin'),
+    path('',views.signin,name='signin'),
     #Home / Default Page
     path('home/',views.home, name='home'),
     path('logout/', views.logout_view, name='logout'),
