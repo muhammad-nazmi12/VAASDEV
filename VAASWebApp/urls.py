@@ -1,4 +1,6 @@
 from django.urls import path,include
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 from .documenthandler import DocumentExportView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -31,11 +33,14 @@ urlpatterns=[
     #Map Data 
     path('map-data',views.map_data_view,name='map_data'),
     #Document Template
+    path('document_preview/',views.document_preview,name='document_preview'),
+    path('analyticrep_preview/',views.analytic_report_preview,name='analyticrep_preview'),
     #Analytics Report for Daily,Weekly,Monthly and Yearly
+    path('analytic-data/',views.AnalyticDoc,name='analytic_data'),
+    path('get_analyticform/',views.get_analyticForm,name='analyticform'),
     path('daily-data/',views.daily_data,name='export_daily'),
     path('weekly-data/',views.weekly_data,name='export_weekly'),
     path('monthly-data/',views.monthly_data,name='export_monthly'),
     path('yearly-data/',views.yearly_data,name='export_yearly')
-]
-
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 urlpatterns+=staticfiles_urlpatterns()

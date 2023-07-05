@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect,JsonResponse,FileResponse
 from django.core import serializers
 from .forms import DocumentForm,AccidentReportSearchForm,ReferDocSearchForm,CoordinateForm,LPForm,DailyPieChartForm,WeeklyBarChartForm,MonthlyGraphBarForm,UserSignUpForm
 from django.contrib.auth import logout,authenticate,login,get_user_model
@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.template.loader import render_to_string
 from .models import Document,AccidentReport,ReferenceDoc,Person,Vehicle,Location
 from django.contrib import messages
 from django.db.models import Count
@@ -355,6 +356,35 @@ def accident_types(request):
     #Render the chart template with the chart image
     return render(request,'accident_types.html',{'chart_file':chart_file})
 
+def AnalyticDoc(request):
+    return render(request,'template/analyticpopup.html')
+
+def get_analyticForm(request):
+    option = request.GET.get('option')
+    #Example 
+    if option == 'Day':
+        analyticform_template = 'exportfile/dailyreport.html'
+    elif option == 'Week':
+        analyticform_template = 'exportfile/weeklyreport.html'
+    elif option == 'Month':
+        analyticform_template = 'exportfile/monthlyreport.html'
+    elif option == 'Year':
+        analyticform_template = 'exportfile/yearlyreport.html'
+    else:
+        analyticform_template= ''
+    
+    form_html=render_to_string('exportfile/analyticform.html',{'analyticform_template':analyticform_template}) 
+    return HttpResponse(form_html)
+
+def analytic_report_preview(request):
+    analytic_rep_preview = ''
+    return HttpResponse(open(analytic_rep_preview,'rb'),conent_type='application/pdf')
+
+def document_preview(request):
+    document_path='media/DEAR_CUSTOMER.pdf'
+    return FileResponse(open(document_path,'rb'),content_type='application/pdf')
+
+
 def testpopup(request):
     return render(request,'popup_window.html')
 
@@ -373,24 +403,24 @@ def createcase_view(request):
         #Process the form data
         title = request.POST.get('title')
         description = request.POST.get('description')
-        person_names = request.POST.getlist('person_name[]')
-        person_ages = request.POST.getlist('person_age[]')
-        person_genders = request.POST.getlist('person_gender[]')
-        person_types = request.POST.getlist('person_type[]')
-        driver_licenses = request.POST.getlist('driver_license[]')
+        person_names = request.POST.getlist('person_name')
+        person_ages = request.POST.getlist('person_age')
+        person_genders = request.POST.getlist('person_gender')
+        person_types = request.POST.getlist('person_type')
+        driver_licenses = request.POST.getlist('driver_license')
         injury = request.POST.getlist('injuries[]')
-        vehicle_models = request.POST.getlist('vehicle_models[]')
-        vehicle_types = request.POST.getlist('vehicle_types[]')
-        plate_numbers = request.POST.getlist('plate_numbers[]')
-        vehicle_owners = request.POST.getlist('vehicle_owners[]')
-        vehicle_damages = request.POST.getlist('vehicle_damages[]')
+        vehicle_models = request.POST.getlist('vehicle_models')
+        vehicle_types = request.POST.getlist('vehicle_types')
+        plate_numbers = request.POST.getlist('plate_numbers')
+        vehicle_owners = request.POST.getlist('vehicle_owners')
+        vehicle_damages = request.POST.getlist('vehicle_damages')
         location_name = request.POST.get('location_name')
         states = request.POST.get('states')
         location_longcoord = request.POST.get('location_longcoord')
         location_latcoord = request.POST.get('location_latcoord')
-        ref_items = request.POST.getlist('ref_item[]')
+        ref_items = request.POST.getlist('ref_item')
         owned_by = request.POST.get('owned_by')
-        ref_types = request.POST.getlist('ref_type[]')
+        ref_types = request.POST.getlist('ref_type')
         
         #Create an AccidentReport object and save it to the database
         accident_report = AccidentReport.objects.create(
@@ -399,52 +429,44 @@ def createcase_view(request):
         )
         
         #Create a Person object and save it to the database
-        for i in range(len(person_names)):
+        if len(person_names)==len(person_ages)==len(person_genders)==len(driver_licenses)==len(person_types)==len(injury):
+            for i in range(len(person_names)):
+                
+                person = Person()
+                person.PersonName = person_names[i]
+                person.PersonAge= person_ages[i]
+                person.PersonGender = person_genders[i]
+                person.PersonType= person_types[i]
+                person.DriverLicense = driver_licenses[i]
+                person.Injuries = injury[i]
+                person.CaseID=accident_report
+                person.save()
+        else:
+            # Handle the case when the lists have different lengths
+            # Print an error message or perform appropriate error handling
+            print("Error: Lengths of the lists are different.")
             
-            person_name = person_names[i]
-            person_age = person_ages[i]
-            person_gender = person_genders[i]
-            person_type = person_types[i]
-            driver_license = driver_licenses[i]
-            injuries = injury[i]
-            
-            person = Person.objects.create(
-                PersonName = person_name,
-                PersonAge = person_age,
-                PersonGender = person_gender,
-                PersonType = person_type,
-                DriverLicense = driver_license,
-                Injuries = injuries,
-                CaseID = accident_report
-            )
-            
-            person.save()
-        
-        for i in range(len(vehicle_models)):
-            
-            vehicle_model=vehicle_models[i]
-            vehicle_type=vehicle_types[i]
-            plate_number=plate_numbers[i]
-            vehicle_owner = vehicle_owners[i]
-            vehicle_damage = vehicle_damages[i]
-            #Check if the vehicle owner exists or create a new one
-            vehicle_owner =get_object_or_404(Person,PersonName=vehicle_owner)
-            
-            if vehicle_owner is None:
-                #Display an error message or handle the situation accordingly
-                return HttpResponse("Vehicle owner does not exists.")
-
-            #Create a vehicle object and establish the foreign key relationship        
-            vehicle = Vehicle.objects.create(
-                VehicleModel = vehicle_model,
-                VehicleType = vehicle_type,
-                PlateNumber = plate_number,
-                VehicleOwnerName = vehicle_owner,
-                VehicleDamage = vehicle_damage,
-                CaseID = accident_report
-            )
-            
-            vehicle.save()
+        if len(vehicle_models)==len(vehicle_types)==len(plate_numbers)==len(vehicle_owners)==len(vehicle_damages):
+            for i in range(len(vehicle_models)):
+                
+                vehicle=Vehicle()
+                vehicle.VehicleModel=vehicle_models[i]
+                vehicle.VehicleType=vehicle_types[i]
+                vehicle.VehiclePlateNumber=plate_numbers[i]
+                vehicle.VehicleOwner = vehicle_owners[i]
+                vehicle.VehicleDamage = vehicle_damages[i]
+                vehicle.CaseID=accident_report
+                #Check if the vehicle owner exists or create a new one
+                vehicle_owner =get_object_or_404(Person,PersonName=vehicle.VehicleOwner)
+                
+                if vehicle_owner is None:
+                    #Display an error message or handle the situation accordingly
+                    return HttpResponse("Vehicle owner does not exists.")
+                vehicle.save()
+        else:
+            # Handle the case when the lists have different lengths
+            # Print an error message or perform appropriate error handling
+            print("Error: Lengths of the lists are different.")
         
         location = Location.objects.create(
             LocationName = location_name,
@@ -453,18 +475,19 @@ def createcase_view(request):
             CoordLat = location_latcoord,
             CaseID = accident_report
         )
-        for i in range(len(ref_items)):
-            ref_item=ref_items[i]
-            ref_type=ref_types[i]
-            
-            referdoc = ReferenceDoc.objects.create(
-                RefItem = ref_item,
-                OwnedBy = current_user.username,
-                RefType = ref_type,
-                CaseID = accident_report
-            )
-            
-            referdoc.save()
+        
+        if len(ref_items)==len(ref_types):
+            for i in range(len(ref_items)):
+                referdoc=ReferenceDoc()
+                referdoc.RefItem=ref_items[i]
+                referdoc.OwnedBy= current_user.username
+                referdoc.RefType=ref_types[i]
+                referdoc.CaseID = accident_report
+                referdoc.save()
+        else:
+            # Handle the case when the lists have different lengths
+            # Print an error message or perform appropriate error handling
+            print("Error: Lengths of the lists are different.")
             
         # Save the model objects to the database
         accident_report.save()

@@ -1,40 +1,35 @@
-<html>
-    <head>
-        {% load static %}
-            <link rel="stylesheet" href="{% static '/css/exportfile/yearlyreport.css' %}">
-    </head>
-    <body>
-        <h4>Yearly Analysis Report Preview</h4>
-        <div id="yearlyGraphPreview"></div>
-        <div id="yearlyGraphForm">
-            <div class="yearly_field">
-                <label for="year">Year: </label>
-                <select value="year" name="year" id="yearly_fields">
-                    <option value=""></option>
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                </select>
-            </div>
-            <br>
-            <div class="yearly_vehicletype">
-                <label for="vehicle_type">Vehicle Type: </label>
-                <select value="vehicle_type" name="vehicle_type" id="yearly_vtfield">
-                    <option value=""></option>
-                    <option value="Car">Car</option>
-                    <option value="Motorcycle">Motorcycle</option>
-                    <option value="Truck">Truck</option>
-                    <option value="Lorry">Lorry</option>
-                    <option value="All">All Type</option>
-                </select>
-            </div>
-            <br>
-            <div class="yearly_buttons">
-                <button type="button" id="previewBtn">Preview</button>
-                <button type="button" id="exportBtn">Export</button>
-            </div>
-        </div>
-    </body>    
-</html>
+<div class="dateReportField">
+    <label for="year"> Year: </label>
+    <input type="number" name="year"  min="1900" max="2099" step="1" value="2023"  id="yearField" required>
+</div>
+<div class="VehicleTypeList">
+    <label for="vehicle_type">Vehicle Type: </label>
+    <select value="vehicle_type" name="vehicle_type" id="TypeVehicleField">
+        <option value=""></option>
+        <option value="Car">Car</option>
+        <option value="Motorcycle">Motorcycle</option>
+        <option value="Truck">Truck</option>
+        <option value="Lorry">Lorry</option>
+    </select>
+</div>
+<div class="InjuryLevelList">
+    <label for="levelInjuries">Person Injury Level: </label>
+    <select value="levelInjuries" name="levelInjuries" id="levelInjuriesField">
+        <option value=""></option>
+        <option value="Minor">Minor</option>
+        <option value="Moderate">Moderate</option>
+        <option value="Severe">Severe</option>
+    </select>
+</div>
+<div class="DamageLevelList">
+    <label for="levelDamages">Vehicle Damage Level: </label>
+    <select value="levelDamages" name="levelDamages" id="levelDamagesField">
+        <option value=""></option>
+        <option value="Minor">Minor</option>
+        <option value="Major">Major</option>
+    </select>
+</div>
+<div class="buttonsField">
+    <button type="button" id="previewBtn">Preview</button>
+    <button type="button" id="exportBtn">Export</button>
+</div>

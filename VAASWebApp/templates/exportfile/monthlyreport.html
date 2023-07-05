@@ -1,47 +1,49 @@
-<html>
-    <head>
-        {% load static %}
-            <link rel="stylesheet" href="{% static '/css/exportfile/monthlyreport.css' %}">
-    </head>
-    <body>
-        <h4>Monthly Analysis Report Preview</h4>
-        <div id="monthlyGraphPreview"></div>
-        <div id="monthlyGraphForm">
-            <div class="monthly_field">
-                <label for="month">Month: </label>
-                <select value="month" name="month" id="monthly_fields">
-                    <option value=""></option>
-                    <option value="Jan">January</option>
-                    <option value="Feb">February</option>
-                    <option value="Mar">March</option>
-                    <option value="Apr">April</option>
-                    <option value="May">May</option>
-                    <option value="Jun">June</option>
-                    <option value="Jul">July</option>
-                    <option value="Aug">August</option>
-                    <option value="Sep">September</option>
-                    <option value="Oct">October</option>
-                    <option value="Nov">November</option>
-                    <option value="Dec">December</option>
-                </select>
-            </div>
-            <br>
-            <div class="monthly_vehicletype">
-                <label for="vehicle_type">Vehicle Type: </label>
-                <select value="vehicle_type" name="vehicle_type" id="monthly_vtfield">
-                    <option value=""></option>
-                    <option value="Car">Car</option>
-                    <option value="Motorcycle">Motorcycle</option>
-                    <option value="Truck">Truck</option>
-                    <option value="Lorry">Lorry</option>
-                    <option value="All">All Type</option>
-                </select>
-            </div>
-            <br>
-            <div class="monthly_buttons">
-                <button type="button" id="previewBtn">Preview</button>
-                <button type="button" id="exportBtn">Export</button>
-            </div>
-        </div>
-    </body>    
-</html>
+<div class="dateReportField">
+    <label for="month">Month: </label>
+    <select value="month" name="month" id="monthField">
+        <option value=""></option>
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+    </select>
+</div>
+<div class="VehicleTypeList">
+    <label for="vehicle_type">Vehicle Type: </label>
+    <select value="vehicle_type" name="vehicle_type" id="TypeVehicleField">
+        <option value=""></option>
+        <option value="Car">Car</option>
+        <option value="Motorcycle">Motorcycle</option>
+        <option value="Truck">Truck</option>
+        <option value="Lorry">Lorry</option>
+    </select>
+</div>
+<div class="InjuryLevelList">
+    <label for="levelInjuries">Person Injury Level: </label>
+    <select value="levelInjuries" name="levelInjuries" id="levelInjuriesField">
+        <option value=""></option>
+        <option value="Minor">Minor</option>
+        <option value="Moderate">Moderate</option>
+        <option value="Severe">Severe</option>
+    </select>
+</div>
+<div class="DamageLevelList">
+    <label for="levelDamages">Vehicle Damage Level: </label>
+    <select value="levelDamages" name="levelDamages" id="levelDamagesField">
+        <option value=""></option>
+        <option value="Minor">Minor</option>
+        <option value="Major">Major</option>
+    </select>
+</div>
+<div class="buttonsField">
+    <button type="button" id="previewBtn">Preview</button>
+    <button type="button" id="exportBtn">Export</button>
+</div>

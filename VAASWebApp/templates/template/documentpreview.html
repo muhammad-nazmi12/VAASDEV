@@ -1,0 +1,9 @@
+<div id="document-preview" style="width:100%; height:600px;"></div>
+
+<script>
+    const documentUrl = '{% url "document_preview" %}';
+    const previewContainer = document.getElementById('document-preview');
+    const viewer = new Viewer(previewContainer,{
+        url: documentUrl,
+    });
+</script>

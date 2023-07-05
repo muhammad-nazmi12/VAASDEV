@@ -1,0 +1,118 @@
+body{
+    background-color: aliceblue;
+}
+
+h4{
+    text-align: center;
+    position:relative;
+    top:30px;
+}
+
+#analyticDocs{
+    position:relative;
+    width:400px;
+    height:500px;
+    top:30px;
+    left:350px;
+    border:2px solid royalblue;
+}
+
+
+#form1{
+    position:relative;
+    top:-475px;
+    left:825px;
+}
+
+#selection_type{
+    width:150px;
+    height:30px;
+}
+
+#analyticForm{
+    position:relative;
+    top:-450px;
+    left:800px;
+    width:300px;
+    height:200px;
+    border:2px solid royalblue;
+}
+
+.dateReportField{
+    position:relative;
+    top: 10px;
+    left:10px;
+}
+
+#dailyField{
+    position:relative;
+    width:100px;
+    left:94px;
+}
+
+#weekStartDate{
+    position:relative;
+    width:100px;
+    left:20px;
+}
+
+#weekEndField{
+    position:relative;
+    top:5px;
+}
+
+#weekEndDate{
+    position:relative;
+    width:100px;
+    left:25px;
+}
+
+#monthField{
+    position:relative;
+    left:95px;
+}
+
+#yearField{
+    position:relative;
+    width:60px;
+    left:135px;
+}
+
+#TypeVehicleField{
+    position:relative;
+    left: 55px;
+}
+
+#levelInjuriesField{
+    position: relative;
+    left:20px;
+}
+
+#levelDamagesField{
+    position: relative;
+    left:25px;
+}
+
+.VehicleTypeList{
+    position:relative;
+    top:20px;
+    left:10px;
+}
+
+.InjuryLevelList{
+    position:relative;
+    top:30px;
+    left:10px;
+}
+
+.DamageLevelList{
+    position:relative;
+    top:40px;
+    left:10px;
+}
+
+.buttonsField{
+    position:relative;
+    top:70px;
+    left:10px;
+}

@@ -25,12 +25,6 @@
                 <p>{{username}}</p>
                 <a href="">Profile</a>
                 <a href="">Settings</a>
-                <div>
-                        <form action="{% url 'logout' %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit">Logout</button>
-                        </form>
-                </div>
         </div>
         <div class="DUDisplay" id="myDUDisplay">
                 <h5>Daily Update News</h5>

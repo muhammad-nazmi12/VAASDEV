@@ -31,6 +31,7 @@ geocoder = "*"
 psycopg2-binary = "*"
 python-dotenv = "*"
 python-magic = "*"
+google-api-python-client = "*"
 
 [dev-packages]
 

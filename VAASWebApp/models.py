@@ -76,6 +76,13 @@ class Person(models.Model):
     ]
     PersonType= models.CharField(max_length=10,choices=PersonTypeChoice)
     DriverLicense = models.CharField(max_length=255,default='')   
+    PersonLevelInjuries = [
+        ('',''),
+        ('Minor','Minor'),
+        ('Moderate','Moderate'),
+        ('Severe','Severe'),
+    ]
+    InjuriesLevel = models.CharField(max_length=10,choices=PersonLevelInjuries,default='')
     Injuries = models.TextField()
     CaseID = models.ForeignKey(AccidentReport, on_delete=models.CASCADE,null=True)
     
@@ -97,6 +104,12 @@ class Vehicle(models.Model):
     VehicleType = models.CharField(max_length=20,choices=VehicleTypeChoice)
     VehiclePlateNumber = models.CharField(max_length=10,default='')
     VehicleOwner=models.CharField(max_length=255,default='')
+    VehicleLevelDamage = [
+        ('',''),
+        ('Minor','Minor'),
+        ('Major','Major'),
+    ]
+    DamageLevel = models.CharField(max_length=10,choices=VehicleLevelDamage,default='')
     VehicleDamage = models.CharField(max_length=255,default='')
     CaseID = models.ForeignKey(AccidentReport, on_delete=models.CASCADE,null=True)
     
