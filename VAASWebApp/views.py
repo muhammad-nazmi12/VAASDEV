@@ -5,28 +5,30 @@ from .forms import DocumentForm,AccidentReportSearchForm,ReferDocSearchForm,Coor
 from django.contrib.auth import logout,authenticate,login,get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.core.serializers.json import DjangoJSONEncoder
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.template.loader import render_to_string
+from django.template import RequestContext
 from .models import Document,AccidentReport,ReferenceDoc,Person,Vehicle,Location
 from django.contrib import messages
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 import matplotlib.pyplot as plt
+import json
+from decimal import Decimal
 from reportlab.pdfgen import canvas
+import os
+import datetime
 import geocoder
-#import firebase_admin
-#from firebase_admin import credentials
 
-#User =  get_user_model
 
-#specify the path to the service account key JSON file
-#service_account_path = 'D:/Project/Python/secretkey/vaasdev-service-account-key.json'
-
-#Initialize Firebase with the service account key
-#cred = credentials.Certificate(service_account_path)
-#firebase_admin.initialize_app(cred)
+class DecimalEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj,Decimal):
+            return str(obj)
+        return super().default(obj)
 
 # Create your views here.
 def signup(request):
@@ -372,7 +374,6 @@ def get_analyticForm(request):
         analyticform_template = 'exportfile/yearlyreport.html'
     else:
         analyticform_template= ''
-    
     form_html=render_to_string('exportfile/analyticform.html',{'analyticform_template':analyticform_template}) 
     return HttpResponse(form_html)
 
@@ -408,18 +409,19 @@ def createcase_view(request):
         person_genders = request.POST.getlist('person_gender')
         person_types = request.POST.getlist('person_type')
         driver_licenses = request.POST.getlist('driver_license')
-        injury = request.POST.getlist('injuries[]')
-        vehicle_models = request.POST.getlist('vehicle_models')
-        vehicle_types = request.POST.getlist('vehicle_types')
-        plate_numbers = request.POST.getlist('plate_numbers')
-        vehicle_owners = request.POST.getlist('vehicle_owners')
-        vehicle_damages = request.POST.getlist('vehicle_damages')
+        injury_level = request.POST.getlist('injury_level')
+        injury = request.POST.getlist('injuries')
+        vehicle_models = request.POST.getlist('vehicle_model')
+        vehicle_types = request.POST.getlist('vehicle_type')
+        plate_numbers = request.POST.getlist('plate_number')
+        vehicle_owners = request.POST.getlist('vehicle_owner')
+        damage_level = request.POST.getlist('damage_level')
+        vehicle_damages = request.POST.getlist('vehicle_damage')
         location_name = request.POST.get('location_name')
         states = request.POST.get('states')
         location_longcoord = request.POST.get('location_longcoord')
         location_latcoord = request.POST.get('location_latcoord')
-        ref_items = request.POST.getlist('ref_item')
-        owned_by = request.POST.get('owned_by')
+        ref_items = request.FILES.getlist('ref_items[]')
         ref_types = request.POST.getlist('ref_type')
         
         #Create an AccidentReport object and save it to the database
@@ -429,65 +431,61 @@ def createcase_view(request):
         )
         
         #Create a Person object and save it to the database
-        if len(person_names)==len(person_ages)==len(person_genders)==len(driver_licenses)==len(person_types)==len(injury):
-            for i in range(len(person_names)):
+        for i in range(len(person_names)):
                 
-                person = Person()
-                person.PersonName = person_names[i]
-                person.PersonAge= person_ages[i]
-                person.PersonGender = person_genders[i]
+            person = Person()
+            person.PersonName = person_names[i]
+            person.PersonAge= person_ages[i]
+            person.PersonGender = person_genders[i]
+            if i < len(person_types):
                 person.PersonType= person_types[i]
-                person.DriverLicense = driver_licenses[i]
-                person.Injuries = injury[i]
-                person.CaseID=accident_report
-                person.save()
-        else:
-            # Handle the case when the lists have different lengths
-            # Print an error message or perform appropriate error handling
-            print("Error: Lengths of the lists are different.")
+            person.DriverLicense = driver_licenses[i]
+            person.InjuriesLevel= injury_level[i]
+            person.Injuries = injury[i]
+            person.CaseID=accident_report
+            person.save()
+
             
-        if len(vehicle_models)==len(vehicle_types)==len(plate_numbers)==len(vehicle_owners)==len(vehicle_damages):
-            for i in range(len(vehicle_models)):
+        
+        for i in range(len(vehicle_models)):
                 
-                vehicle=Vehicle()
-                vehicle.VehicleModel=vehicle_models[i]
-                vehicle.VehicleType=vehicle_types[i]
-                vehicle.VehiclePlateNumber=plate_numbers[i]
-                vehicle.VehicleOwner = vehicle_owners[i]
-                vehicle.VehicleDamage = vehicle_damages[i]
-                vehicle.CaseID=accident_report
-                #Check if the vehicle owner exists or create a new one
-                vehicle_owner =get_object_or_404(Person,PersonName=vehicle.VehicleOwner)
+            vehicle=Vehicle()
+            vehicle.VehicleModel=vehicle_models[i]
+            vehicle.VehicleType=vehicle_types[i]
+            vehicle.VehiclePlateNumber=plate_numbers[i]
+            vehicle.VehicleLevelDamage = damage_level[i]
+            vehicle.VehicleDamage = vehicle_damages[i]
+            vehicle.CaseID=accident_report
+            #Check if the vehicle owner exists or create a new one
+            #vehicle_owner =get_object_or_404(Person,PersonName=vehicle.VehicleOwner)
+            vehicle_owner=Person.objects.filter(PersonName=vehicle_owners[i]).first()
                 
-                if vehicle_owner is None:
-                    #Display an error message or handle the situation accordingly
-                    return HttpResponse("Vehicle owner does not exists.")
-                vehicle.save()
-        else:
-            # Handle the case when the lists have different lengths
-            # Print an error message or perform appropriate error handling
-            print("Error: Lengths of the lists are different.")
+            if vehicle_owner is None:
+                #Display an error message or handle the situation accordingly
+                return HttpResponse("Vehicle owner does not exists.")
+            vehicle.VehicleOwner=vehicle_owner.pk
+            vehicle.save()
+      
         
         location = Location.objects.create(
-            LocationName = location_name,
+            Address = location_name,
             States = states,
-            CoordLong = location_longcoord,
-            CoordLat = location_latcoord,
+            Longtitude = location_longcoord,
+            Latitude = location_latcoord,
             CaseID = accident_report
         )
         
-        if len(ref_items)==len(ref_types):
-            for i in range(len(ref_items)):
-                referdoc=ReferenceDoc()
-                referdoc.RefItem=ref_items[i]
-                referdoc.OwnedBy= current_user.username
-                referdoc.RefType=ref_types[i]
-                referdoc.CaseID = accident_report
+        for i, ref_item in enumerate(ref_items):
+            referdoc=ReferenceDoc()
+            referdoc.RefItem=ref_item
+            referdoc.OwnedBy= current_user.username
+            referdoc.RefType=ref_types[i]
+            referdoc.CaseID = accident_report
+            try:
                 referdoc.save()
-        else:
-            # Handle the case when the lists have different lengths
-            # Print an error message or perform appropriate error handling
-            print("Error: Lengths of the lists are different.")
+            except Exception as e:
+                print("Error saving ReferenecDoc: ", str(e))
+    
             
         # Save the model objects to the database
         accident_report.save()
@@ -515,6 +513,17 @@ def map_data_view(request):
     #Return the map data as a JSON response
     return JsonResponse(map_data)
 
+def map_marker_view(request):
+    location_points=Location.objects.values('Latitude,Longtitude,Address')
+    
+    serialized_location = json.dumps(
+        list(location_points.values('CoordLat,CoordLong,LocationName')),
+        cls=DecimalEncoder
+    )
+    
+    return JsonResponse(serialized_location,safe=False)
+    
+
 def generate_document(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST)
@@ -537,15 +546,212 @@ def generate_document(request):
         form=DocumentForm()
         
     return render(request,'doctesting/generate_doc.html',{'form':form})
+
+def report_preview(request):
+    
+    #Get the HTML content of the sample document
+    sample_report_html="<html><body><h1>Report</h1><p>Testing</p></body></html>"
+    
+    #Pass the sample document HTML to the template
+    context={"sample_report_html":sample_report_html}
+    
+    #Return the preview template with the provided context
+    return render(request,'preview/report_preview.html',context)
             
 def daily_data(request):
+    if request.method == "POST":
+        # Get the selected values from the form
+        username=request.user.username
+        dailyDate = request.POST.get('dailyDate')
+        vehicleType=request.POST.get('vehicle_type')
+        levelInjuries = request.POST.get('levelInjuries')
+        levelDamages=request.POST.get('levelDamages')
+        current_date = datetime.date.today().strftime("%d-%m-%Y")
+        current_time = datetime.datetime.now().strftime("%H:%M:%S")
+        
+        #Generate the report using ReportLab
+        report_title = f"Daily Analytic Report for {dailyDate}"
+        date_info = f"Date: {current_date} "
+        time_info = f"Time: {current_time}"
+        vehicle = f'Vehicle Type: {vehicleType}'
+        injury = f'Level of Person Injuries: {levelInjuries}'
+        damage = f'Level of Vehicle Damages: {levelDamages}'
+        #Perform other report generation logic...
+        
+        #Preview the daily data before export it
+        report_data={
+            "report_title":report_title,
+            "current_date":current_date,
+            "current_time":current_time,
+            "vehicle":vehicle,
+            "injury":injury,
+            "damage":damage,
+        }
+        #return render(request,'preview/dailyreport_preview.html',report_data)
+        #Create a PDF using ReportLab
+        response = HttpResponse(content_type='application/pdf')
+        filename = f"Analytic_Report_{username}_{current_date}.pdf"
+        response['Content-Disposition']=f'attachment; filename="{filename}"' 
+        p = canvas.Canvas(response)
+        p.drawString(215,800,report_title)
+        p.drawString(100,750,date_info)
+        p.drawString(400,750,time_info)
+        p.drawString(100,720,vehicle)
+        p.drawString(100,700,damage)
+        p.drawString(100,680,injury)
+        #Draw other report elements
+        p.showPage()
+        p.save()
+        
+        return response
     return render(request,'exportfile/dailyreport.html')
 
 def weekly_data(request):
+    if request.method=="POST":
+        # Get the selected values from the form
+        username=request.user.username
+        startWeek = request.POST.get('week_start')
+        endWeek = request.POST.get('week_end')
+        vehicleType=request.POST.get('vehicle_type')
+        levelInjuries = request.POST.get('levelInjuries')
+        levelDamages=request.POST.get('levelDamages')
+        current_date = datetime.date.today().strftime("%d-%m-%Y")
+        current_time = datetime.datetime.now().strftime("%H:%M:%S")
+        
+        #Generate the report using ReportLab
+        report_title = f" Weekly Analytic Report for {startWeek} to {endWeek}"
+        date_info = f"Date: {current_date} "
+        time_info = f"Time: {current_time}"
+        vehicle = f'Vehicle Type: {vehicleType}'
+        injury = f'Level of Person Injuries: {levelInjuries}'
+        damage = f'Level of Vehicle Damages: {levelDamages}'
+        #Perform other report generation logic...
+        
+        #Preview the daily data before export it
+        report_data={
+            "report_title":report_title,
+            "current_date":current_date,
+            "current_time":current_time,
+            "vehicle":vehicle,
+            "injury":injury,
+            "damage":damage,
+        }
+        #return render(request,'preview/dailyreport_preview.html',report_data)
+        #Create a PDF using ReportLab
+        response = HttpResponse(content_type='application/pdf')
+        filename = f"Analytic_Report_{username}_{current_date}.pdf"
+        response['Content-Disposition']=f'attachment; filename="{filename}"' 
+        p = canvas.Canvas(response)
+        p.drawString(180,800,report_title)
+        p.drawString(100,750,date_info)
+        p.drawString(400,750,time_info)
+        p.drawString(100,720,vehicle)
+        p.drawString(100,700,damage)
+        p.drawString(100,680,injury)
+        #Draw other report elements
+        p.showPage()
+        p.save()
+        
+        return response
     return render(request,'exportfile/weeklyreport.html')
 
 def monthly_data(request):
+    if request.method=="POST":
+        # Get the selected values from the form
+        username=request.user.username
+        month = request.POST.get('month')
+        vehicleType=request.POST.get('vehicle_type')
+        levelInjuries = request.POST.get('levelInjuries')
+        levelDamages=request.POST.get('levelDamages')
+        current_date = datetime.date.today().strftime("%d-%m-%Y")
+        current_time = datetime.datetime.now().strftime("%H:%M:%S")
+        
+        #Generate the report using ReportLab
+        report_title = f"Monthly Analytic Report for {month}"
+        date_info = f"Date: {current_date} "
+        time_info = f"Time: {current_time}"
+        vehicle = f'Vehicle Type: {vehicleType}'
+        injury = f'Level of Person Injuries: {levelInjuries}'
+        damage = f'Level of Vehicle Damages: {levelDamages}'
+        #Perform other report generation logic...
+         # Preview the monthly data before exporting it
+        report_data = {
+            "report_title": report_title,
+            "current_date": current_date,
+            "current_time": current_time,
+            "vehicle": vehicle,
+            "injury": injury,
+            "damage": damage,
+        }
+        #return render(request, 'preview/monthlyreport_preview.html', report_data)
+    
+        #Create a PDF using ReportLab
+        response = HttpResponse(content_type='application/pdf')
+        filename = f"Analytic_Report_{username}_{current_date}.pdf"
+        response['Content-Disposition']=f'attachment; filename="{filename}"' 
+        p = canvas.Canvas(response)
+        p.drawString(215,800,report_title)
+        p.drawString(100,750,date_info)
+        p.drawString(400,750,time_info)
+        p.drawString(100,720,vehicle)
+        p.drawString(100,700,damage)
+        p.drawString(100,680,injury)
+        #Draw other report elements
+        p.showPage()
+        p.save()
+        
+        return response
     return render(request,'exportfile/monthlyreport.html')
 
 def yearly_data(request):
+    if request.method=="POST":
+        # Get the selected values from the form
+        username=request.user.username
+        year = request.POST.get('year')
+        vehicleType=request.POST.get('vehicle_type')
+        levelInjuries = request.POST.get('levelInjuries')
+        levelDamages=request.POST.get('levelDamages')
+        current_date = datetime.date.today().strftime("%d-%m-%Y")
+        current_time = datetime.datetime.now().strftime("%H:%M:%S")
+        
+        #Generate the report using ReportLab
+        report_title = f"Yearly Analytic Report for {year}"
+        date_info = f"Date: {current_date} "
+        time_info = f"Time: {current_time}"
+        vehicle = f'Vehicle Type: {vehicleType}'
+        injury = f'Level of Person Injuries: {levelInjuries}'
+        damage = f'Level of Vehicle Damages: {levelDamages}'
+        #Perform other report generation logic...
+        
+        #Preview the daily data before export it
+        report_data={
+            "report_title":report_title,
+            "current_date":current_date,
+            "current_time":current_time,
+            "vehicle":vehicle,
+            "injury":injury,
+            "damage":damage,
+        }
+        #return render(request,'preview/dailyreport_preview.html',report_data)
+        #Create a PDF using ReportLab
+        response = HttpResponse(content_type='application/pdf')
+        filename = f"Analytic_Report_{username}_{current_date}.pdf"
+        response['Content-Disposition']=f'attachment; filename="{filename}"' 
+        p = canvas.Canvas(response)
+        p.drawString(215,800,report_title)
+        p.drawString(100,750,date_info)
+        p.drawString(400,750,time_info)
+        p.drawString(100,720,vehicle)
+        p.drawString(100,700,damage)
+        p.drawString(100,680,injury)
+        #Draw other report elements
+        p.showPage()
+        p.save()
+        
+        return response
     return render(request,'exportfile/yearlyreport.html')
+
+#def generatePreview(event):
+#    event.preventDefault() #
+    
+    #Retrieve from input values

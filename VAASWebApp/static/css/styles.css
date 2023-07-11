@@ -305,7 +305,7 @@ footer {
 }
 
 .CRTable{
-    overflow:auto;
+    overflow-y:auto;
 }
 
 .CRTable,th,td{
@@ -329,7 +329,7 @@ footer {
 }
 
 .RDTable{
-    overflow:auto;
+    overflow-y:auto;
 }
 
 .RDTable,th,td{

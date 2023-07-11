@@ -41,16 +41,18 @@
     position:relative;
     top:85px;
     left:10px;
+    overflow: auto;
 }
 
 .RDListDisplay{
     width:1275px;
-    height:150px;
-    position:absolute;
-    bottom:10px;
+    height:135px;
+    position:relative;
+    top:50px;
     left:10px;
     border: 2px solid gray;
-    border-radius: 5px;
+    border-radius:5px;
+    overflow:auto;
 }
 
 .SearchField2{

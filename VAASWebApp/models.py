@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models  import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
+import os
 
 # For Document Model
 class Document(models.Model):
@@ -49,14 +50,14 @@ class AccidentReport(models.Model):
     
    
 class Location(models.Model):
-    LocationName = models.CharField(max_length=255,primary_key=True)
+    Address = models.CharField(max_length=255,primary_key=True)
     States = models.CharField(max_length=255,default='')
-    CoordLong = models.FloatField(default=0)
-    CoordLat = models.FloatField(default=0)
+    Longtitude= models.DecimalField(max_digits=9,decimal_places=6)
+    Latitude = models.DecimalField(max_digits=9,decimal_places=6)
     CaseID = models.ForeignKey(AccidentReport, on_delete=models.CASCADE,null=True)
     
     def __str__(self):
-        return str(self.LocationName)
+        return str(self.Address)
     
 class Person(models.Model):
     PersonID = models.BigAutoField(primary_key=True)
@@ -118,9 +119,8 @@ class Vehicle(models.Model):
     
 class ReferenceDoc(models.Model):
     ReferenceID = models.BigAutoField(primary_key=True)
-    RefItem = models.FileField(upload_to='reference_docs/',null=True)
+    RefItem = models.FileField(upload_to='references/',null=True)
     OwnedBy = models.CharField(max_length=100,default='')
-    ContactNumber = models.CharField(max_length=20,default='')  # New field for contact number
     
     RefTypeChoice = [
         ('',''),
@@ -134,3 +134,6 @@ class ReferenceDoc(models.Model):
     
     def __str__(self):
         return str(self.ReferenceID)
+    
+    def get_file_name(self):
+        return self.RefItem.name.split('/')[-1]

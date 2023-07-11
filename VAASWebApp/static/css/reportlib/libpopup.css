@@ -1,5 +1,5 @@
 /* CSS for Popup Window */
-.popup {
+.create-case-popup {
     display: none;
     position: fixed;
     top: 0;
@@ -12,7 +12,7 @@
     border-radius: 3px;
   }
   
-  .popup-content {
+  .case-popup-content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -66,6 +66,11 @@
 #person_gender{
   position: relative;
   left:22px;
+}
+
+#person_type{
+  position: relative;
+  left:35px;
 }
 
 #person_age{
@@ -138,14 +143,7 @@
   position: relative;
   left:60px;
 }
-/*
-#location_address{
-  width:300px;
-  height:50px;
-  position:relative;
-  left:47px;
-}
-*/
+
 #location_longcoord{
   width:150px;
   position:relative;

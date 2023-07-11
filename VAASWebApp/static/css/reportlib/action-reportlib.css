@@ -1,0 +1,63 @@
+.CRpopup{
+    position:relative;
+    display:inline-block;
+}
+
+.CRpopup-button{
+    background-color:transparent;
+    border:none;
+    cursor:pointer;
+}
+
+.CR-popup-content{
+    display:none;
+    position:absolute;
+    z-index:1;
+    padding:10px;
+    background-color:#fff;
+    border:1px solid #ccc;
+    width:200px;
+}
+
+.CR-popup-content::after{
+    content:"";
+    position:absolute;
+    top:-10px;
+    left:50%;
+    transform:translateX(-50%);
+    border-width:10px;
+    border-style:solid;
+    border-color:transparent transparent #ccc transparent;
+}
+
+.RDpopup{
+    position:relative;
+    display:inline-block;
+}
+
+.RDpopup-button{
+    background-color:transparent;
+    border:none;
+    cursor:pointer;
+}
+
+.RD-popup-content{
+    display:none;
+    position:absolute;
+    z-index:1;
+    padding:10px;
+    background-color:#fff;
+    border:1px solid #ccc;
+    width:200px;
+}
+
+.RD-popup-content::after{
+    content:"";
+    position:absolute;
+    top:-10px;
+    left:50%;
+    transform:translateX(-50%);
+    border-width:10px;
+    border-style:solid;
+    border-color:transparent transparent #ccc transparent;
+}

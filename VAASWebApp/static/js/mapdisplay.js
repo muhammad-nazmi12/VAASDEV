@@ -26,10 +26,15 @@ function CntrMarker(){
     map.setView(centerPoint,6);
 }
 
+//Retrieve the coordinates and address from the server-side
+var dataPoints = JSON.parse('{{ data_points | escapejs }}');
 
-//Display the retrieved address on the map
-var address="{{address}}";              // Replace with the address value passed from the backend
-var popup = L.popup().setContent(address);
-L.marker([5.5351995, 108.5584311]).bindPopup(popup).addTo(map); // Replace with the desired marker coordinates
+dataPoints.forEach(function (data){
+   var latitude = data.CoordLat;
+   var longitude = data.CoordLong;
+
+   var marker = L.marker([latitude,longitude]).addTo(map);
+});
+
 
 

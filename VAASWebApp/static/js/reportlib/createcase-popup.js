@@ -35,8 +35,24 @@ function addPersonField(){
     '   <option value="female">Female</option>'+
     '</select>'+
     '<br>'+
+    '<label for="person_type">Type: </label>'+
+    '<select id="person_type" name="person_type">'+
+    '   <option value=""></option>'+
+    '   <option value="Driver">Driver</option>'+
+    '   <option value="Biker">Biker</option>'+
+    '   <option value="Passenger">Passenger</option>'+
+    '</select>'+
+    '<br>'+
     '<label for="driver_license">License: </label>'+
     '<input type="text" id="driver_license" name="driver_license">'+
+    '<br>'+
+    '<label for="injury_level">Injury Level: </label>'+
+    '<select id="injury_level" name="injury_level">'+
+    '    <option value=""></option>'+
+    '    <option value="Minor">Minor</option>'+
+    '    <option value="Moderate">Moderate</option>'+
+    '    <option value="Severe">Severe</option>'+
+    '</select>'+
     '<br>'+
     '<label for="injuries">Injuries: </label>'+
     '<textarea id="injuries" name="injuries"></textarea>'+
@@ -68,6 +84,13 @@ function addVehicleField(){
     '<option value=""></option>'+
     '</select>'+
     '<br>'+
+    '<label for="damage_level">Damage Level: </label>'+
+    '<select id="damage_level" name="damage_level">'+
+    '   <option value=""></option>'+
+    '    <option value="Minor">Minor</option>'+
+    '    <option value="Major">Major</option>'+
+    '</select>'+
+    '<br>'+
     '<label for="vehicle_damage">Damages: </label>'+
     '<textarea id="vehicle_damage" name="vehicle_damage"></textarea>'+
     '<br>';
@@ -79,10 +102,7 @@ function addReferenceField(){
     entry.setAttribute("id","reference_entry");
     entry.innerHTML=
         '<label for="ref_item">Reference Item: </label>'+
-        '<input type="file" id="ref_item" name="ref_item">'+
-        '<br>'+
-        '<label for="owned_by">Owned By: </label>'+
-        '<input type="text" id="owned_by" name="owned_by">'+
+        '<input type="file" id="ref_item" name="ref_items[]" multiple>'+
         '<br>'+
         '<label for="ref_type">Type: </label>'+
         '<select id="ref_type" name="ref_type">'+
@@ -114,3 +134,22 @@ function updateVehicleOwnerOptions(){
     }
 }
 
+function previewReference(input){
+    var previewContainer = document.getElementById("reference_preview");
+    var file=input.files[0];
+
+    if(file){
+        var reader=new FileReader();
+
+        reader.onload = function(e){
+            var preview = document.createElement("div");
+            preview.innerHTML="Preview: " + file.name;
+            previewContainer.innerHTML="";
+            previewContainer.appendChild(preview);
+        }
+
+        reader.readAsDataURL(file);
+    }else{
+        previewContainer.innerHTML="";
+    }
+}

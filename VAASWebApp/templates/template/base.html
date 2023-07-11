@@ -9,7 +9,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static '/css/styles.css' %}">
 <link rel="stylesheet" href="{% static '/css/mapmenu.css' %}">
-<link rel="stylesheet" href="{% static '/css/libdisplay.css' %}">
+<link rel="stylesheet" href="{% static '/css/reportlib/libdisplay.css' %}">
 <link rel="stylesheet" href="{% static '/css/clock.css' %}">
 <link rel="stylesheet" href="{% static '/css/analytictable.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />       
@@ -40,8 +40,8 @@
 {% block body %}{% endblock %}
 </main>
 
-<!--{% block footer %}
-    <footer>@2023 Just Testing</footer>
-{% endblock %}-->
+{% block footer %}
+    <footer>@2023 Vehicle Accident Analysis System</footer>
+{% endblock %}
 </body>
 </html>

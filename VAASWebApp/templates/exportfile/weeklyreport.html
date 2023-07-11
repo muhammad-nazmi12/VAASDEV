@@ -1,81 +1,44 @@
-<!--<html>
-    <head>
-        {% load static %}
-            <link rel="stylesheet" href="{% static '/css/exportfile/weeklyreport.css' %}">
-    </head>
-    <body>
-        <h4>Weekly Analysis Report Preview</h4>
-        <div id="weeklyGraphPreview"></div>
-        <div id="weeklyGraphForm">
-            <div class="weekly_field">
-                <label for="week">Week: </label>
-                <select value="week" name="week" id="weekly_fields">
-                    <option value=""></option>
-                    <option value="1">Week 1</option>
-                    <option value="2">Week 2</option>
-                    <option value="3">Week 3</option>
-                    <option value="4">Week 4</option>
-                </select>
-            </div>
-            <br>
-            <div class="weekly_vehicletype">
-                <label for="vehicle_type">Vehicle Type: </label>
-                <select value="vehicle_type" name="vehicle_type" id="weekly_vtfield">
-                    <option value=""></option>
-                    <option value="Car">Car</option>
-                    <option value="Motorcycle">Motorcycle</option>
-                    <option value="Truck">Truck</option>
-                    <option value="Lorry">Lorry</option>
-                    <option value="All">All Type</option>
-                </select>
-            </div>
-            <br>
-            <div class="weekly_buttons">
-                <button type="button" id="previewBtn">Preview</button>
-                <button type="button" id="exportBtn">Export</button>
-            </div>
+<form method="POST" action="{% url 'export_weekly' %}">
+    {% csrf_token %}
+    <div class="dateReportField">
+        <div id="weekStartField">
+            <label for="week_start">Week Start Date: </label>
+            <input type="date" name="week_start" id="weekStartDate" required>
         </div>
-    </body>    
-</html>
--->
-<div class="dateReportField">
-    <div id="weekStartField">
-        <label for="week_start">Week Start Date: </label>
-        <input type="date" name="week_start" id="weekStartDate" required>
+        <div id="weekEndField">
+            <label for="week_end">Week End Date: </label>
+            <input type="date" name="week_end" id="weekEndDate" required>
+        </div>
     </div>
-    <div id="weekEndField">
-        <label for="week_end">Week End Date: </label>
-        <input type="date" name="week_end" id="weekEndDate" required>
+    <div class="VehicleTypeList">
+        <label for="vehicle_type">Vehicle Type: </label>
+        <select value="vehicle_type" name="vehicle_type" id="TypeVehicleField">
+            <option value=""></option>
+            <option value="Car">Car</option>
+            <option value="Motorcycle">Motorcycle</option>
+            <option value="Truck">Truck</option>
+            <option value="Lorry">Lorry</option>
+        </select>
     </div>
-</div>
-<div class="VehicleTypeList">
-    <label for="vehicle_type">Vehicle Type: </label>
-    <select value="vehicle_type" name="vehicle_type" id="TypeVehicleField">
-        <option value=""></option>
-        <option value="Car">Car</option>
-        <option value="Motorcycle">Motorcycle</option>
-        <option value="Truck">Truck</option>
-        <option value="Lorry">Lorry</option>
-    </select>
-</div>
-<div class="InjuryLevelList">
-    <label for="levelInjuries">Person Injury Level: </label>
-    <select value="levelInjuries" name="levelInjuries" id="levelInjuriesField">
-        <option value=""></option>
-        <option value="Minor">Minor</option>
-        <option value="Moderate">Moderate</option>
-        <option value="Severe">Severe</option>
-    </select>
-</div>
-<div class="DamageLevelList">
-    <label for="levelDamages">Vehicle Damage Level: </label>
-    <select value="levelDamages" name="levelDamages" id="levelDamagesField">
-        <option value=""></option>
-        <option value="Minor">Minor</option>
-        <option value="Major">Major</option>
-    </select>
-</div>
-<div class="buttonsField">
-    <button type="button" id="previewBtn">Preview</button>
-    <button type="button" id="exportBtn">Export</button>
-</div>
+    <div class="InjuryLevelList">
+        <label for="levelInjuries">Person Injury Level: </label>
+        <select value="levelInjuries" name="levelInjuries" id="levelInjuriesField">
+            <option value=""></option>
+            <option value="Minor">Minor</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Severe">Severe</option>
+        </select>
+    </div>
+    <div class="DamageLevelList">
+        <label for="levelDamages">Vehicle Damage Level: </label>
+        <select value="levelDamages" name="levelDamages" id="levelDamagesField">
+            <option value=""></option>
+            <option value="Minor">Minor</option>
+            <option value="Major">Major</option>
+        </select>
+    </div>
+    <div class="buttonsField">
+        <button type="button" id="previewBtn">Preview</button>
+        <button type="submit" id="exportBtn">Export</button>
+    </div>
+</form>

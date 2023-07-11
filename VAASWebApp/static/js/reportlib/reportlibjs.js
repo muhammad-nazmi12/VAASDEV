@@ -20,19 +20,19 @@ $(document).ready(function() {
   console.log("reportlib.js loaded"); 
 
   $('#createcase-popup').click(function() {
-      openPopup('/create/');
+      openCCPopup('/create/');
   });
 
   $('#popup-close').click(function() {
-      closePopup();
+      closeCCPopup();
   });
 });
 
-function openPopup(url) {
-  $('#popup-content').load(url);
-  $('#popup').fadeIn();
+function openCCPopup(url) {
+  $('#case-popup-content').load(url);
+  $('#create-case-popup').fadeIn();
 }
 
-function closePopup() {
-  $('#popup').fadeOut();
+function closeCCPopup() {
+  $('#create-case-popup').fadeOut();
 }

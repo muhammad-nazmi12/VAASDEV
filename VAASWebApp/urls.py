@@ -32,7 +32,9 @@ urlpatterns=[
     path('maptest/',views.map_view,name="maptest"),
     #Map Data 
     path('map-data',views.map_data_view,name='map_data'),
+    path('map-view',views.map_marker_view,name='map_view'),
     #Document Template
+    path('report_preview/',views.report_preview,name='report_preview'),
     path('document_preview/',views.document_preview,name='document_preview'),
     path('analyticrep_preview/',views.analytic_report_preview,name='analyticrep_preview'),
     #Analytics Report for Daily,Weekly,Monthly and Yearly
@@ -42,5 +44,5 @@ urlpatterns=[
     path('weekly-data/',views.weekly_data,name='export_weekly'),
     path('monthly-data/',views.monthly_data,name='export_monthly'),
     path('yearly-data/',views.yearly_data,name='export_yearly')
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+] 
 urlpatterns+=staticfiles_urlpatterns()

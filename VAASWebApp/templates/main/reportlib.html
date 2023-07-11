@@ -45,7 +45,19 @@
                             <td>{{ ACR.Title }}</td>
                             <td>{{ ACR.Description }}</td>
                             <td>{{ ACR.DateTime }}</td>
-                            <td></td>
+                            <td>
+                                <div class="CRpopup">
+                                    <button class="CRpopup-button" onclick="toggleCRPopup('{{ACR.CaseID}}')">Select Action</button>
+                                    <div id="{{ACR.CaseID}}" class="CR-popup-content" style="display:none;">
+                                        <select onchange="handleCaseChange('{{ACR.CaseID}}',this.value)">
+                                            <option value=""></option>
+                                            <option value="View">View</option>
+                                            <option value="Edit">Edit</option>
+                                            <option value="Delete">Delete</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     {% empty %}
                         <tr>
@@ -89,11 +101,22 @@
                 <tbody>
                     {% for RD in refer_doc %}
                         <tr>
-                            <td>{{ RD.RefNo }}</td>
-                            <td>{{ RD.File }}</td>
-                            <td>{{ RD.Owner }}</td>
-                            <td>{{ RD.CaseNo }}</td>
-                            <td></td>
+                            <td>{{ RD.ReferenceID }}</td>
+                            <td>{{ RD.get_file_name}}</td>
+                            <td>{{ RD.OwnedBy }}</td>
+                            <td>{{ RD.CaseID }}</td>
+                            <td>
+                                <div class='RDPopup'>
+                                    <button class="RDpopup-button" onclick="toggleRefPopup('{{RD.ReferenceID}}')">Select Action</button>
+                                    <div id="{{RD.ReferenceID}}" class="RD-popup-content" style="display:none;">
+                                        <select onchange="handleRefChange('{{RD.ReferenceID}}',this.value)">
+                                            <option value=""></option>
+                                            <option value="View">View</option>
+                                            <option value="Delete">Delete</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     {% empty %}
                         <tr>
@@ -105,9 +128,42 @@
         </div>
     </div>
 </div>
-
-<div id="popup" class="popup">
-    <div class="popup-content" id="popup-content">
+<!--Start Page of Case Report-->
+<div id="view-popup" class="CRpopup">
+    <button class="CRpopup-button" onclick="openCRPopup('view-popup')">View</button>
+    <div class="CR-popup-content">
+        <!--View data content here-->
+    </div>
+</div>
+<div id="edit-popup" class="CRpopup">
+    <button class="CRpopup-button" onclick="openCRPopup('edit-popup')">Edit</button>
+    <div class="CR-popup-content">
+        <!--Edit data content here-->
+    </div>
+</div>
+<div id="delete-popup" class="CRpopup">
+    <button class="CRpopup-button" onclick="openCRPopup('delete-popup')">Delete</button>
+    <div class="CR-popup-content">
+        <!--Delete data content here-->
+    </div>
+</div>
+<!--End Page of Case Report-->
+<!--Start Page of Reference-->
+<div id="view-popup" class="RDpopup">
+    <button class="RDpopup-button" onclick="openRefPopup('view-popup')">View</button>
+    <div class="RD-popup-content">
+        <!--View data content here-->
+    </div>
+</div>
+<div id="delete-popup" class="RDpopup">
+    <button class="RDpopup-button" onclick="openRefPopup('delete-popup')">Delete</button>
+    <div class="RD-popup-content">
+        <!--Delete data content here-->
+    </div>
+</div>
+<!--End Page of Reference-->
+<div id="create-case-popup" class="create-case-popup">
+    <div class="case-popup-content" id="case-popup-content">
         {% include 'createcase/popup.html' %}
     </div>
     <button id="popup-close">Close</button>
@@ -116,8 +172,10 @@
 </div>
 
 {% load static %}
-<link rel="stylesheet" href="{% static '/css/libpopup.css' %}">
+<link rel="stylesheet" href="{% static '/css/reportlib/action-reportlib.css' %}">
+<link rel="stylesheet" href="{% static '/css/reportlib/libpopup.css' %}">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<script src="{% static '/js/reportlibjs.js' %}"></script>
-<script src="{% static '/js/popup.js ' %}"></script>
+<script src="{% static '/js/reportlib/reportlibjs.js' %}"></script>
+<script src="{% static '/js/reportlib/createcase-popup.js ' %}"></script>
+<script src="{% static '/js/reportlib/action-reportlib.js' %}"></script>
 {% endblock %}

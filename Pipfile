@@ -32,6 +32,8 @@ psycopg2-binary = "*"
 python-dotenv = "*"
 python-magic = "*"
 google-api-python-client = "*"
+django-leaflet = "*"
+weasyprint = "*"
 
 [dev-packages]
 

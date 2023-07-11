@@ -1,0 +1,11 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+CLASS:PUBLIC
+DESCRIPTION:Learn core AWS cloud concepts\, architectural best practices\, and demos to help you get started and accelerate your success on AWS. Join Kris Howard\, Head of Dev Relations\, APJ\, AWS as she shares best practices around cloud security. Gain valuable cloud knowledge from AWS experts on a broad range of getting started topics across 4 breakout tracks.\n\nView latest agenda at https://aws.amazon.com/events/builders-online-series/#agenda\n\nAccess the online event on live day at https://builders-apj.virtual.awsevents.com/?lang=en\n\nQuestions? Email us at aws-apj-marketing@amazon.com\n\n--------------------------------------------------------\nSession Timings\n--------------------------------------------------------\nAustralia - GMT+10 (AEST) 10:00am\n\nNew Zealand - GMT+12 (NZST) 12:00pm\n\nSingapore / Malaysia / Philippines - GMT+8 (SGT/MYT/PHT) 8:00am\n\nThailand / Vietnam - GMT+7 (ICT) 7:00am\n\nIndonesia - GMT+7 (WIB) 07:00\n\nPakistan - GMT+5 (PKT) 5:00am\n\nIndia - GMT+5.30 (IST) 5:30am\n\nSri Lanka - GMT+5.30 (SLT) 5:30am\n\nJapan - GMT+9 (JST) 9:00am\n\nKorea - GMT+9 (KST) 9:00am\n
+DTSTART:20230713T000000Z
+DTEND:20230713T040000Z
+LOCATION:https://builders-apj.virtual.awsevents.com/?lang=en
+SUMMARY;LANGUAGE=en-us:AWS Builders Online Series
+END:VEVENT
+END:VCALENDAR
