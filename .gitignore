@@ -4,12 +4,12 @@
 db.sqlite3
 
 #Firebase
-.firebase/
-.firebase-debug.log
-.firebase/hosting.*
-firebase.json
-firebase.json
-.firebasearc
+#.firebase/
+#.firebase-debug.log
+#.firebase/hosting.*
+#firebase.json
+#firebase.json
+#.firebasearc
 
 #Firebase Service Account Key
 D:/Project/Python/secretkey/vaasdev-service-account-key.json
