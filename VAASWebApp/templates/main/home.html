@@ -22,9 +22,17 @@
                 </div>
         </div>
         <div class="OMDisplay" id="myOMDisplay">
-                <p>{{username}}</p>
-                <a href="">Profile</a>
-                <a href="">Settings</a>
+                <p style="width:100px; position:absolute; left:20px;">{{username}}</p>
+
+                <div class="HomeOptionMenu">
+                        <select name="option" id="options" 
+                                style="width:100px;">
+                                <option value=""></option>
+                                <option value="Profile">Profile</option>
+                                <option value="Settings">Settings</option>
+                                <option value="Logout">Logout</option>
+                        </select>
+                </div>
         </div>
         <div class="DUDisplay" id="myDUDisplay">
                 <h5>Daily Update News</h5>

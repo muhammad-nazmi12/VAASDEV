@@ -3,6 +3,31 @@
 
 <div id="myMap">
     <div class="MapTitle">
+        <h2>Map View</h2>
+    </div>
+        <div class="MapSearchForm" id="myMapSearchForm">
+            <form method = "POST" action= "{% url 'mapview' %}" class="map-search-form">
+                {% csrf_token %}
+                {{mapview_search.as_p}}
+                <div class="map-radio-group">
+                    <label for="CNo">
+                    <input type="radio" name="CaseNo" id="CNo" value="Case"/>Case No.
+                    </label>
+                    <label for="NoP">
+                        <input type="radio" name="NamePlace" id="NoP" value="Place"/>Location
+                    </label>
+                    <label for="Coor">
+                        <input type="radio" name="Coord" id="Coor" value="Coodrinate"/>Coordinates
+                    </label>
+                </div>
+                <button type="submit" class="map-submit-btn">Search</button>
+            </form>
+        </div>
+        <div class="MapView" id="myMapView">
+            <div class="MapDisplay" id="myMapDisplay"></div>
+        </div>
+    
+    <!--<div class="MapTitle">
         <h2>VAAS Map Display</h2>
     </div>
     <div class="MapView" id="myMapView">
@@ -47,7 +72,7 @@
             </p>
             
         </div>
-    </div>
+    </div>-->
 </div>
 
 {% load static %}

@@ -1,14 +1,14 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse, HttpResponseRedirect,JsonResponse,FileResponse
 from django.core import serializers
-from .forms import DocumentForm,AccidentReportSearchForm,ReferDocSearchForm,CoordinateForm,LPForm,DailyPieChartForm,WeeklyBarChartForm,MonthlyGraphBarForm,UserSignUpForm
+from .forms import DocumentForm,AccidentReportSearchForm,ReferDocSearchForm,CoordinateForm,LPForm,DailyPieChartForm,WeeklyBarChartForm,MonthlyGraphBarForm,UserSignUpForm,MapViewForm
 from django.contrib.auth import logout,authenticate,login,get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.mail import send_mail
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from .models import Document,AccidentReport,ReferenceDoc,Person,Vehicle,Location
@@ -47,16 +47,16 @@ def signup(request):
             
             
             if conpassword==password:
-                user = User.objects.create_user(username=username,email=email,password=password)
+                user = User.objects.create_user(username=username,email=email,password=password) 
                 
                 #Send registration email to the user
-                subject='Welcome to VAAS System'
-                message='Thank you for registering on our website.'
-                from_email=settings.DEFAULT_FROM_EMAIL
-                recipient_list=[user.email]
-                send_mail(subject,message,from_email,recipient_list)
+                #subject='Welcome to VAAS System'
+                #message='Thank you for registering on our website.'
+                #from_email=settings.DEFAULT_FROM_EMAIL
+                #recipient_list=[user.email]
+                #send_mail(subject,message,from_email,recipient_list)
                 login(request,user)
-                return redirect('home/')
+                return redirect('home')
             else:
                 error_message = 'The password not same'
                 return render(request, 'userform/signup.html',{'error_message':error_message}) 
@@ -76,7 +76,7 @@ def signin(request):
         if user is not None:
             #User crdentials are valid, log in the user
             login(request,user)
-            return redirect('home/')
+            return redirect('home')
         else:
             #User crededtials are not valid
             error_message="Invalid username or password"
@@ -101,6 +101,7 @@ def testing(request):
 
 @login_required
 def mapview(request):
+    mapviewform = MapViewForm(request.GET)
     #Handle Search Coordinate form submission
     if request.method == 'POST' and 'coordform_submit' in request.POST:
         coordform = CoordinateForm(request.POST)
@@ -123,10 +124,25 @@ def mapview(request):
         else:
             locateform = LPForm()
 
+    if request.method == 'POST' and 'mapviewform_submit' in request.POST:
+        mapform = MapViewForm(request.POST)
+        if mapform.is_valid():
+              # Process the form data and perform actions for Search Coordinate
+            longitude = mapform.cleaned_data['longitude']
+            latitude = mapform.cleaned_data['latitude']
+            # Process the coordinates as needed
+            location = geocoder.osm([latitude,longitude],method='reverse')
+            # Retrieve the address from the location object
+            address = location.address
+        else:
+            mapform = MapViewForm()
+        
+    
     centerpoint = [5.5351995,108.5584311]
     context={'center_point':centerpoint,
              'form1':CoordinateForm(),
-             'form2':LPForm()
+             'form2':LPForm(),
+             'mapview_search':MapViewForm()
             }
     return render(request,'main/mapviewpage.html',context)
 
@@ -751,7 +767,39 @@ def yearly_data(request):
         return response
     return render(request,'exportfile/yearlyreport.html')
 
+#def dailyGraph(request):
+
+    #Fetch daily data from the database
+    #data = DailyData.objects.all()
+    
+    #Extractly labels and values from the data
+#    labels = [entry.date.strftime("%d-%m-%Y") for entry in data]
+#    values = [entry.value for entry in data]
+    
+    #Prepare the data as a dictionary
+#    chart_data={
+#        'labels':labels,
+#        'values':values,
+#    }
+    
+#    return JsonResponse(chart_data)
+
+#def weeklyGraph(request):
+    #Fetch weekly data from the database
+    #data = WeeklyData.objects.all()
+    
+    #Extractly labels and values from the data
+#    labels = [entry.date.strftime("%d-%m-%Y") for entry in data]
+#    values = [entry.value for entry in data]
+    
+    #Prepare the data as a dictionary
+#    chart_data={
+#        'labels':labels,
+#       'values':values,
+#    }
+    
+#    return JsonResponse(chart_data  )
 #def generatePreview(event):
 #    event.preventDefault() #
     
-    #Retrieve from input values
+    #Retrieve from input values 

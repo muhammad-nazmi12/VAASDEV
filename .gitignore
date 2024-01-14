@@ -2,8 +2,6 @@
 .env/
 /.python-version
 db.sqlite3
-.vercel
-
 
 #Firebase
 .firebase/
@@ -18,7 +16,6 @@ D:/Project/Python/secretkey/vaasdev-service-account-key.json
 
 #Node.js
 node_modules/
-
 
 #github-firebase
 .github/workflows

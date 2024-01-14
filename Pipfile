@@ -34,6 +34,7 @@ python-magic = "*"
 google-api-python-client = "*"
 django-leaflet = "*"
 weasyprint = "*"
+sweetviz = "*"
 
 [dev-packages]
 

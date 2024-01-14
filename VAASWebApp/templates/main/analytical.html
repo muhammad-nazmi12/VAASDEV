@@ -6,7 +6,74 @@
         <h2>VAAS Analytical Page</h2>
     </div>
     <div class="AnalyticalTable" id="myAnalyticalTable">
-        <form method="get" action="{% url 'analytical' %}">
+        <button id="popupButton">Export Report</button>
+        <div class="dailyTable">
+            <h4>Daily </h4>
+            <div class="dailyFilter">
+                <label for="dailyTypeSelector">Filter Type: </label>
+                <select id="dailyTypeSelector">
+                    <option></option>
+                    <option>Level of Injuries</option>
+                    <option>Level of Vehicle Damages</option>
+                    <option>Type of Vehicle</option>
+                    <option> Type of Person</option>
+                </select> 
+                <label for="dailySelector">Day: </label>
+                <select id="dailySelector">
+                    <option></option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                </select>
+            </div>
+            <canvas id="dailyGraph"></canvas>
+        </div>
+        <div class="weeklyTable">
+            <h4>Weekly </h4>
+            <div class="weeklyFilter">
+                <label for="weeklyTypeSelector">Filter Type: </label>
+                <select id="weeklyTypeSelector">
+                    <option></option>
+                    <option>Level of Injuries</option>
+                    <option>Level of Vehicle Damages</option>
+                    <option>Type of Vehicle</option>
+                    <option> Type of Person</option>
+                </select> 
+                <label for="weeklySelector">Week: </label>
+                <select id="weeklySelector">
+                    <option></option>
+                    <option>Week 1</option>
+                    <option>Week 2</option>
+                    <option>Week 3</option>
+                    <option>Week 4</option>
+                </select>
+            </div>
+            <canvas id="weeklyGraph"></canvas>
+        </div>
+        <div class="m2yTable">
+            <h4>Monthly/Yearly </h4>
+            <div class="m2yFilter">
+                <label for="m2ySelector">Select: </label>
+                <select id="m2ySelector">
+                    <option>Monthly</option>
+                    <option>Yearly</option>
+                </select>
+                <label for="m2yTypeSelector">Filter Type: </label>
+                <select id="m2yTypeSelector">
+                    <option></option>
+                    <option>Level of Injuries</option>
+                    <option>Level of Vehicle Damages</option>
+                    <option>Type of Vehicle</option>
+                    <option> Type of Person</option>
+                </select>
+            </div>
+            <canvas id="m2yGraph"></canvas>
+        </div>
+        <!--<form method="get" action="{% url 'analytical' %}">
             {% csrf_token %}
             <div class="Table1" id="myTable1">
                 <h4>Daily Case Report</h4>
@@ -18,7 +85,9 @@
                             <option value = "{{ value }}" {% if daily_default == value %} selected {% endif %}>{{ label }}</option>
                         {% endfor %}
                     </select>
-                    <div id="dailyGraphContainer"></div>
+                    <div id="dailyGraphContainer">
+                        <canvas id="dailyGraph"></canvas>
+                    </div>
                 </div>
             </div>
             <div class="Table2" id="myTable2">
@@ -26,7 +95,9 @@
                 <div class="Weekly-form">
                     <label for="{{ weeklyform.WeeklyByOrder.id_for_label }}">Week: </label>
                     {{ weeklyform.WeeklyByOrder }}
-                    <div id="weeklyGraphContainer"></div>
+                    <div id="weeklyGraphContainer">
+                        <canvas id="weeklyGraph"></canvas>
+                    </div>
                 </div>
             </div>
             <div class="Table3" id="myTable3">
@@ -35,12 +106,23 @@
                     <label for="{{ monthlyform.MonthlyByOrder.id_for_label }}">Month: </label>
                     {{ monthlyform.MonthlyByOrder }}
                 </div>
-                <div id="monthlyGraphContainer"></div>
+                <div id="monthlyGraphContainer">
+                    <canvas id="monthlyGraph"></canvas>
+                </div>
             </div>
-        </form>
+        </form>-->
+    </div>
+    <div id="popup" class="chartpopup">
+        <div class="chartPopup-content">
+        <span class="closeChartPopup" id="closePopup">&times;</span>
+        <h2>Export Analytical Report Page</h2>
+        <p>Testing</p>    
+        </div>
     </div>
 </div>
 {% load static %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="{% static '/js/analyticaljs.js' %}"></script>
+<script src="{% static '/js/analytical/popup-chart.js'%}"></script>
 {% endblock %}

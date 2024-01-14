@@ -1,8 +1,0 @@
-{
-    "routes": [
-        { "src": "/(.*)", "dest": "VAASDEV.wsgi.application" }
-      ],
-    "env":{
-        "DJANGO_SETTINGS_MODULE":"VAASDEV.settings"
-    }
-}

@@ -1,6 +1,6 @@
 function openNav(){
-    document.getElementById("mySidenav").style.width="250px";
-    document.getElementById("myExImBox").style.marginLeft="250px";
+    document.getElementById("mySidenav").style.width="150px";
+    document.getElementById("myExImBox").style.marginLeft="50px";
 }
 
 function closeNav(){

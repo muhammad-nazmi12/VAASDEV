@@ -1,19 +1,21 @@
 function openNav(){
-    document.getElementById("mySidenav").style.width="250px";
-    document.getElementById("myMap").style.marginLeft="200px";
-    document.getElementById("myMapView").style.width="955px";
-    document.getElementById("myMapDisplay").style.width="865px";
-    document.getElementById("myMDMenu").style.marginLeft="50px";
+    document.getElementById("mySidenav").style.width="150px";
+    document.getElementById("myMap").style.marginLeft="100px";
+    document.getElementById("myMapView").style.width="1255px";
+    document.getElementById("myMapDisplay").style.width="1220px";
+    document.getElementById("myMapSearchForm").style.width="1255px";
+    //document.getElementById("myMDMenu").style.marginLeft="50px";
 }
 
 function closeNav(){
     document.getElementById("mySidenav").style.width="0";
     document.getElementById("myMap").style.marginLeft="0";
-    document.getElementById("myMapView").style.width="1105px";
-    document.getElementById("myMapDisplay").style.width="1015px";
-    document.getElementById("myMDMenu").style.marginLeft="0";
+    document.getElementById("myMapView").style.width="1350px";
+    document.getElementById("myMapDisplay").style.width="1315px";
+    document.getElementById("myMapSearchForm").style.width="1350px";
+    //document.getElementById("myMDMenu").style.marginLeft="0";
 }
-
+/*
 function OCMapMenu(){
     var MDM = document.getElementById("myMDMenu");
     if (MDM.style.width === "0px" || MDM.style.width === "") {
@@ -33,5 +35,5 @@ function CoorMenuBtn(){
     CM.style.height="0px";
   }
 }
-
+*/
 

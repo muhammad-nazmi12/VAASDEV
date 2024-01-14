@@ -121,6 +121,16 @@ class MonthlyGraphBarForm(forms.Form):
     ]
     MonthlyByOrder = forms.ChoiceField(required=False,choices=MonthlyByChoice)
 
+class MapViewForm(forms.Form):
+    mapview_searchbar = forms.CharField(required=False,max_length=1000,
+                                        widget=forms.TextInput(attrs={'placeholder':'Search...'}))
+    
+    FILTER_CHOICES=[
+        ('Case No.','CNo'),
+        ('Name of Place','NoP'),
+        ('Coordinate','Coordinates'),
+    ]
+
 class ACForm(forms.ModelForm):
     class Meta:
         model = AccidentReport

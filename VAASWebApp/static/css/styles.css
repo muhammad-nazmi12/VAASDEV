@@ -55,9 +55,9 @@ body{
 }
 
 footer {
-    position:absolute;
-    right:0;
-    bottom:0;
+    position:relative;
+    left:100px;
+    bottom:50px;
 }
 
 /*End Body & Sidebar Component*/
@@ -93,8 +93,8 @@ footer {
     transition: width .5s;
 }
 .DCDisplay{
-    width:500px;
-    height:195px;
+    width:965px;
+    height:200px;
     position:absolute;
     left:10px;
     top:10px;
@@ -104,9 +104,9 @@ footer {
 
 .DTDisplay{
     width:300px;
-    height:195px;
+    height:140px;
     position:absolute;
-    left:520px;
+    right:12px;
     top:10px;
     border:2px solid gray;
     border-radius:5px;
@@ -118,11 +118,11 @@ footer {
 }
 
 .OMDisplay{
-    width:455px;
-    height:195px;
+    width:300px;
+    height:50px;
     position:absolute;
-    left:830px;
-    top:10px;
+    right:12px;
+    top:160px;
     border:2px solid gray;
     border-radius:5px;
 }
@@ -131,22 +131,10 @@ footer {
     transition: width .5s;
 }
 
-.OMDisplay p{
-    padding:8px 8px 8px 8px;
-    font-size: 16px;
-}
-
-.OMDisplay a{
-    padding:8px 8px 8px 8px;
-    text-decoration: none;
-    font-size: 16px;
-    color:black;
-    display: block;
-    transition:0.3s;
-}
-
-.OMDisplay a:hover{
-    color:lightblue;
+.HomeOptionMenu{
+    position:absolute;
+    top:14px;
+    right:20px;
 }
 
 .DUDisplay{
@@ -163,11 +151,33 @@ footer {
     transition: width .5s;
 }
 
-
-
 /*End Home Page*/
 
 /*Start Map Display Page*/
+
+.map-search-form {
+    max-width:400px;
+    margin: 0 auto;
+    position:absolute;
+    bottom:15px;
+    left:5px;
+}
+
+.map-radio-group {
+    display:flex;
+    position:absolute;
+    top:40px;
+    left:-5px;
+    gap:10px;
+}
+
+.map-submit-btn {
+    width:100px;
+    height:50px;
+    position:absolute;
+    top:10px;
+    left:400px;
+}
 
 #myMap{
     transition: margin-left .5s;
@@ -181,17 +191,32 @@ footer {
 .MapTitle{
     position: absolute;
     left:43%;
-    top:20px;
+    top:0px;
 }
 
 .MapTitle h2{
     text-align: center;
 }
 
+#myMapSearchForm{
+    transition: width .5s;
+}
+
+.MapSearchForm{
+    height:65px;
+    width:1350px;
+    top:-70px;
+    left:50px;
+    position:relative;
+    border:2px solid gray;
+    border-radius:5px;
+    background-color: white;
+}
+
 .MapView{
-    height:590px;
-    width:1105px;
-    top:-40px;
+    height:580px;
+    width:1350px;
+    top:-60px;
     left:50px;
     position:relative;
     border:2px solid gray;
@@ -214,10 +239,10 @@ footer {
 }
 
 .MapDisplay{
-    height:555px;
-    width:1015px;
-    left:15px;
-    top:15px;
+    height:1000px;
+    width:1315px;
+    left:10px;
+    top:10px;
     position:absolute;
     border:2px solid gray;
     border-radius: 5px;
@@ -362,8 +387,8 @@ footer {
 }
 
 .AnalyticalTable{
-   height:500px;
-   width:1350px;
+   height:1000px;
+   width:1210px;
    margin:auto;
    position:relative;
    border:2px solid gray; 
@@ -371,7 +396,121 @@ footer {
    background-color: white;
 }
 
-.Table1{
+.dailyTable{
+    position:absolute;
+    width:1200px;
+    height:300px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    top: 50px;
+    left:20px;
+}
+
+.dailyTable h4{
+    position:absolute;
+    top:-5px;
+    left:20px;
+}
+
+.dailyFilter{
+    position:absolute;
+    top:5px;
+    right:20px;
+}
+
+#dailyTypeSelector{
+    width:200px;
+    height:30px;
+}
+
+#dailySelector{
+    width:80px;
+    height:30px;
+}
+
+.weeklyTable{
+    position:absolute;
+    width:1200px;
+    height:300px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    top:370px;
+    left:20px;
+}
+
+.weeklyFilter{
+    position:absolute;
+    top:5px;
+    right:20px;
+}
+
+#weeklyTypeSelector{
+    width:200px;
+    height:30px;
+}
+
+#weeklySelector{
+    width:80px;
+    height:30px;
+}
+
+.m2yTable{
+    position:absolute;
+    width:1200px;
+    height:300px;
+    border:2px solid gray;
+    border-radius: 5px;
+    top:695px;
+    left:20px;
+}
+
+.m2yFilter{
+    position:absolute;
+    top:5px;
+    right:20px;
+}
+
+#m2ySelector{
+    width:80px;
+    height:30px;
+}
+
+#m2yTypeSelector{
+    width:200px;
+    height:30px;
+}
+
+.chartpopup{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,.0.7);
+}
+
+.chartPopup-content{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background-color:#fff;
+    padding:20px;
+    border-radius:5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    text-align:center;
+}
+
+.closeChartpopup{
+    position:absolute;
+    top:10px;
+    right:10px;
+    font-size:20px;
+    cursor:pointer;
+}
+
+/*.Table1{
     position:absolute;
     width:400px;
     height:180px;
@@ -422,7 +561,7 @@ footer {
     position:absolute;
     top:-5px;
     left:20px;
-}
+}*/
 
 /*End Analytical Page*/
 

@@ -1,15 +1,15 @@
 function openNav(){
-            document.getElementById("mySidenav").style.width="250px";
-            document.getElementById("myAnalytical").style.marginLeft="250px";
-            document.getElementById("myAnalyticalTable").style.width="1100px";
-            document.getElementById("myTable2").style.width="676px";
-            document.getElementById("myTable3").style.width="1064px";
+            document.getElementById("mySidenav").style.width="150px";
+            document.getElementById("myAnalytical").style.marginLeft="150px";
+            document.getElementById("myAnalyticalTable").style.width="1250px";
+            document.getElementById("myTable2").style.width="926px";
+            document.getElementById("myTable3").style.width="1314px";
         }
     
 function closeNav(){
             document.getElementById("mySidenav").style.width="0";
             document.getElementById("myAnalytical").style.marginLeft="0";
-            document.getElementById("myAnalyticalTable").style.width="1350px";
+            document.getElementById("myAnalyticalTable").style.width="1250px";
             document.getElementById("myTable2").style.width="926px";
             document.getElementById("myTable3").style.width="1314px";
         }
@@ -58,3 +58,25 @@ $(document).ready(function(){
         });
     }
 });
+
+var endpoint = '/api/analytics/';
+
+$.ajax({
+    method:"GET",
+    url:endpoint,
+    success:function(data){
+        drawDailyGraph(data,'dailyGraph');
+        drawMonthlyGraph(data,'monthlyGraph');
+        drawWeeklyGraph(data,'weeklyGraph');
+        console.log("Procees Completed");
+    },
+    error:function(error_data){
+        console.log(error_data);
+    }
+});
+
+function drawDailyGraph(data,containerId){
+    var chartLabel = data.chartLabel;
+
+}
+
